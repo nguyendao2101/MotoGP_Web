@@ -106,20 +106,6 @@ class _LoginViewState extends State<LoginView> {
                           const SizedBox(height: 64),
                           _textOrContinueWith(),
                           const SizedBox(height: 32),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Image.asset(
-                          //       ImageAssest.logoGG,
-                          //       height: 72,
-                          //     ),
-                          //     const SizedBox(width: 20),
-                          //     Image.asset(
-                          //       ImageAssest.logoFB,
-                          //       height: 58,
-                          //     ),
-                          //   ],
-                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
