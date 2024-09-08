@@ -21,7 +21,7 @@ class _RidersAndTeamsRidersViewState extends State<RidersAndTeamsRidersView>
   @override
   void initState() {
     super.initState();
-    // Initialize TabController with 6x tabs and the current index set to 0
+    // Initialize TabController with 4 tabs
     _tabController = TabController(length: 4, vsync: this);
   }
 
@@ -35,40 +35,54 @@ class _RidersAndTeamsRidersViewState extends State<RidersAndTeamsRidersView>
   Widget build(BuildContext context) {
     final controller = Get.put(RidersAndTeamsViewModels());
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 40,
-        title: SizedBox(
-          height: 40, // Đảm bảo có chiều cao cụ thể cho SizedBox
-          child: Column(
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: TabBar(
-                    controller: _tabController,
-                    indicatorColor: Colors.red,
-                    indicatorWeight: 1,
-                    labelColor: Colors.red,
-                    labelStyle: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.bold),
-                    isScrollable: true,
-                    tabs: const [
-                      Tab(text: 'MotoGP™'),
-                      Tab(text: 'Moto2™'),
-                      Tab(text: 'Moto3™'),
-                      Tab(text: 'MotoE™'),
-                    ],
-                  )),
-            ],
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true, // Giúp AppBar cuộn theo nội dung
+            snap: true, // AppBar xuất hiện ngay khi người dùng vuốt nhẹ lên
+            pinned: false, // Không giữ lại AppBar khi cuộn
+            primary: false, // Vô hiệu hóa việc tính toán AppBar với phần đầu
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.zero,
+              background: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: TabBar(
+                        controller: _tabController,
+                        indicatorColor: Colors.red,
+                        indicatorWeight: 1,
+                        labelColor: Colors.red,
+                        labelStyle: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                        isScrollable: true,
+                        tabs: const [
+                          Tab(text: 'MotoGP™'),
+                          Tab(text: 'Moto2™'),
+                          Tab(text: 'Moto3™'),
+                          Tab(text: 'MotoE™'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          RidersAndTeamsRidersMotogp(),
-          RidersAndTeamsRidersMoto2(),
-          RidersAndTeamsRidersMoto3(),
-          RidersAndTeamsRidersMotoe(),
+          SliverFillRemaining(
+            child: TabBarView(
+              controller: _tabController,
+              children: const [
+                RidersAndTeamsRidersMotogp(),
+                RidersAndTeamsRidersMoto2(),
+                RidersAndTeamsRidersMoto3(),
+                RidersAndTeamsRidersMotoe(),
+              ],
+            ),
+          ),
         ],
       ),
     );
