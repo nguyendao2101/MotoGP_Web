@@ -217,6 +217,7 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
+          iconTheme: const IconThemeData(color: Colors.white),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(

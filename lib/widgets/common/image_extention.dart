@@ -12,4 +12,9 @@ class ImageAssest {
   static String drawerHome = '$baseImagePath/drawerHome.png';
   static String logoappMoto = '$baseImagePath/logoappMoto.png';
   static String user = '$baseImagePath/user.png';
+  //home/ridersandteams/riders
+  static String search = '$baseImagePath/search.png';
+  static String pannerRiders = '$baseImagePath/pannerRiders.png';
+  //home/ridersandteam/teams
+  static String pannerTeams = '$baseImagePath/pannerTeams.png';
 }
