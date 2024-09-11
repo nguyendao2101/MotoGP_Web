@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moto_gp_web/widgets/common/image_extention.dart';
 
 class GrandPrixCard extends StatelessWidget {
   final String dayStart;
+  final String space;
+
   final String dayEnd;
   final String grandPrixName;
   final String location;
@@ -27,6 +28,7 @@ class GrandPrixCard extends StatelessWidget {
     required this.grandPrixImage,
     required this.grandCountry,
     required this.monthEnd,
+    required this.space,
   }) : super(key: key);
 
   @override
@@ -60,11 +62,11 @@ class GrandPrixCard extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(width: 20),
-              const Text(
-                '-',
-                style: TextStyle(
+              Text(
+                space,
+                style: const TextStyle(
                     fontSize: 58,
-                    color: const Color.fromARGB(255, 102, 94, 94),
+                    color: Color.fromARGB(255, 102, 94, 94),
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(width: 20),
@@ -118,9 +120,9 @@ class GrandPrixCard extends StatelessWidget {
         ),
         Positioned(
           top: 94,
-          left: 175,
+          left: 206,
           child: Text(
-            monthStart,
+            monthEnd,
             style: const TextStyle(
                 fontSize: 12,
                 color: Color.fromARGB(255, 75, 73, 73),
@@ -129,9 +131,9 @@ class GrandPrixCard extends StatelessWidget {
         ),
         Positioned(
           top: 94,
-          left: 68,
+          left: 82,
           child: Text(
-            monthEnd,
+            monthStart,
             style: const TextStyle(
                 fontSize: 12,
                 color: Color.fromARGB(255, 75, 73, 73),

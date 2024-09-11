@@ -57,4 +57,5 @@ class ImageAssest {
   static String thaiLan = '$baseImagePath/thaiLan.png';
   static String indonesia = '$baseImagePath/indonesia.png';
   static String nhat = '$baseImagePath/nhat.png';
+  static String val = '$baseImagePath/val.png';
 }
