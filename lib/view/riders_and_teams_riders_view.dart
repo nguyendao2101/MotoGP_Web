@@ -50,7 +50,7 @@ class _RidersAndTeamsRidersViewState extends State<RidersAndTeamsRidersView>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: TabBar(
                         controller: _tabController,
                         indicatorColor: Colors.red,
@@ -75,7 +75,7 @@ class _RidersAndTeamsRidersViewState extends State<RidersAndTeamsRidersView>
           SliverFillRemaining(
             child: TabBarView(
               controller: _tabController,
-              children: const [
+              children: [
                 RidersAndTeamsRidersMotogp(),
                 RidersAndTeamsRidersMoto2(),
                 RidersAndTeamsRidersMoto3(),

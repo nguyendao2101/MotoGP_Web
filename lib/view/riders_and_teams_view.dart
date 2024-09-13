@@ -62,14 +62,15 @@ class _RidersAndTeamsViewState extends State<RidersAndTeamsView>
                       Expanded(
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 16, left: 60),
+                          padding: const EdgeInsets.only(top: 16, left: 80),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               _textTopAppbar('Riders & Team'),
                               const Spacer(),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:
+                                    const EdgeInsets.only(top: 8, right: 64),
                                 child: Container(
                                   height: 64,
                                   width: 400,
@@ -117,19 +118,24 @@ class _RidersAndTeamsViewState extends State<RidersAndTeamsView>
                         child: Stack(
                           children: [
                             Positioned.fill(
-                              child: TabBar(
-                                controller: _tabController,
-                                indicatorColor: Colors.red,
-                                indicatorWeight: 1,
-                                labelColor: Colors.white,
-                                labelStyle: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                                isScrollable: true,
-                                tabs: const [
-                                  Tab(text: 'RIDERS'),
-                                  Tab(text: 'TEAMS'),
-                                  Tab(text: 'LEGENDS'),
-                                ],
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: TabBar(
+                                  controller: _tabController,
+                                  indicatorColor: Colors.red,
+                                  indicatorWeight: 1,
+                                  labelColor: Colors.white,
+                                  labelStyle: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                  isScrollable: true,
+                                  tabs: const [
+                                    Tab(text: 'RIDERS'),
+                                    Tab(text: 'TEAMS'),
+                                    Tab(text: 'LEGENDS'),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

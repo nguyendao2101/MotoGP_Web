@@ -55,14 +55,14 @@ class _CalendarViewState extends State<CalendarView>
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 60),
+                      padding: const EdgeInsets.only(left: 72),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             '2024 Calendar',
                             style: const TextStyle(
-                                fontSize: 52,
+                                fontSize: 48,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
