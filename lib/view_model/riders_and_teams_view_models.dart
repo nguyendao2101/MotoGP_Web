@@ -11,6 +11,7 @@ class RidersAndTeamsViewModels extends GetxController {
   RxList<Map<String, dynamic>> ridersListMotoGPWildCardsAndTestRiders =
       <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> resultsMotoGPRAC = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> resultsMotoGPWUP = <Map<String, dynamic>>[].obs;
 
   // Temporary storage for rider details
   Map<String, Map<String, dynamic>> ridersMap = {};
@@ -22,6 +23,7 @@ class RidersAndTeamsViewModels extends GetxController {
     fetchRidersMotoGPSubstitute();
     fetchRidersMotoGPWildCardsAndTestRiders();
     fetchResultMotoGPRAC();
+    fetchResultMotoGPWUP();
   }
 
   // Fetch MotoGP riders' data and store in ridersMap
@@ -153,6 +155,56 @@ class RidersAndTeamsViewModels extends GetxController {
                 'id': i.toString(),
                 'Id': riderId,
                 'Points': result['Points'] ?? 'N/A',
+                'Time': result['Time'] ?? 'N/A',
+                'RiderDetails': riderDetails,
+              });
+            }
+          }
+        } else {
+          print('Unexpected data format: ${snapshot.value.runtimeType}');
+        }
+      }
+    }).catchError((error) {
+      print('Error fetching results: $error');
+    });
+  }
+
+  Future<void> fetchResultMotoGPWUP() async {
+    DatabaseReference resultsRef = _databaseReference.child(
+        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/WUP');
+
+    resultsRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        print('Data received: ${snapshot.value}');
+        if (snapshot.value is List) {
+          List<dynamic> resultsList =
+              List<dynamic>.from(snapshot.value as List);
+          resultsMotoGPWUP.clear();
+
+          for (int i = 1; i < resultsList.length; i++) {
+            var result = resultsList[i];
+            if (result is Map) {
+              String riderId = result['Id'] ?? 'N/A';
+
+              // Fetch rider details from combined ridersMap
+              Map<String, dynamic> riderDetails = ridersMap[riderId] ??
+                  {
+                    'Id': riderId,
+                    'ImageCountry': 'N/A',
+                    'Country': 'N/A',
+                    'ImageRacer': '',
+                    'Name': 'N/A',
+                    'Team': 'N/A',
+                    'Position': 'N/A',
+                    'Points': 'N/A',
+                    'Victories': 'N/A',
+                  };
+
+              resultsMotoGPWUP.add({
+                'id': i.toString(),
+                'Id': riderId,
+                'Gap': result['Gap'] ?? 'N/A',
                 'Time': result['Time'] ?? 'N/A',
                 'RiderDetails': riderDetails,
               });
