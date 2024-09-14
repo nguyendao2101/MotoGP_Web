@@ -10,6 +10,10 @@ class RidersAndTeamsViewModels extends GetxController {
       <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> ridersListMotoGPWildCardsAndTestRiders =
       <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> resultsMotoGPRAC = <Map<String, dynamic>>[].obs;
+
+  // Temporary storage for rider details
+  Map<String, Map<String, dynamic>> ridersMap = {};
 
   @override
   void onInit() {
@@ -17,9 +21,10 @@ class RidersAndTeamsViewModels extends GetxController {
     fetchRidersMotoGP();
     fetchRidersMotoGPSubstitute();
     fetchRidersMotoGPWildCardsAndTestRiders();
+    fetchResultMotoGPRAC();
   }
 
-  //riders&teams/riders/motogp/official
+  // Fetch MotoGP riders' data and store in ridersMap
   Future<void> fetchRidersMotoGP() async {
     DatabaseReference officialRidersRef =
         _databaseReference.child('Riders&Team/Riders/MotoGP/Official');
@@ -27,11 +32,11 @@ class RidersAndTeamsViewModels extends GetxController {
     officialRidersRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null) {
-        Map<String, dynamic> ridersMap =
+        Map<String, dynamic> ridersMapData =
             Map<String, dynamic>.from(snapshot.value as Map);
         ridersListMotoGP.clear();
-        ridersMap.forEach((key, value) {
-          ridersListMotoGP.add({
+        ridersMapData.forEach((key, value) {
+          Map<String, dynamic> riderData = {
             'id': key,
             'ImageCountry': value['ImageCountry'] ?? 'N/A',
             'Country': value['Country'] ?? 'N/A',
@@ -42,7 +47,9 @@ class RidersAndTeamsViewModels extends GetxController {
             'Position': value['Position'] ?? 'N/A',
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
-          });
+          };
+          ridersMap[key] = riderData; // Update ridersMap without overwriting
+          ridersListMotoGP.add(riderData);
         });
       }
     });
@@ -50,17 +57,17 @@ class RidersAndTeamsViewModels extends GetxController {
 
   //riders&teams/riders/motogp/substitute
   Future<void> fetchRidersMotoGPSubstitute() async {
-    DatabaseReference officialRidersRef =
+    DatabaseReference substituteRidersRef =
         _databaseReference.child('Riders&Team/Riders/MotoGP/Substitute');
 
-    officialRidersRef.once().then((DatabaseEvent event) {
+    substituteRidersRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null) {
-        Map<String, dynamic> ridersMap =
+        Map<String, dynamic> substituteRidersMap =
             Map<String, dynamic>.from(snapshot.value as Map);
         ridersListMotoGPSubstitute.clear();
-        ridersMap.forEach((key, value) {
-          ridersListMotoGPSubstitute.add({
+        substituteRidersMap.forEach((key, value) {
+          Map<String, dynamic> riderData = {
             'id': key,
             'ImageCountry': value['ImageCountry'] ?? 'N/A',
             'Country': value['Country'] ?? 'N/A',
@@ -71,7 +78,9 @@ class RidersAndTeamsViewModels extends GetxController {
             'Position': value['Position'] ?? 'N/A',
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
-          });
+          };
+          ridersMap[key] = riderData; // Append to the existing ridersMap
+          ridersListMotoGPSubstitute.add(riderData);
         });
       }
     });
@@ -79,17 +88,17 @@ class RidersAndTeamsViewModels extends GetxController {
 
   //riders&teams/riders/motogp/wildcardsandtestriders
   Future<void> fetchRidersMotoGPWildCardsAndTestRiders() async {
-    DatabaseReference officialRidersRef = _databaseReference
+    DatabaseReference wildcardsRef = _databaseReference
         .child('Riders&Team/Riders/MotoGP/WildcardsAndTestRiders');
 
-    officialRidersRef.once().then((DatabaseEvent event) {
+    wildcardsRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null) {
-        Map<String, dynamic> ridersMap =
+        Map<String, dynamic> wildcardRidersMap =
             Map<String, dynamic>.from(snapshot.value as Map);
         ridersListMotoGPWildCardsAndTestRiders.clear();
-        ridersMap.forEach((key, value) {
-          ridersListMotoGPWildCardsAndTestRiders.add({
+        wildcardRidersMap.forEach((key, value) {
+          Map<String, dynamic> riderData = {
             'id': key,
             'ImageCountry': value['ImageCountry'] ?? 'N/A',
             'Country': value['Country'] ?? 'N/A',
@@ -100,9 +109,61 @@ class RidersAndTeamsViewModels extends GetxController {
             'Position': value['Position'] ?? 'N/A',
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
-          });
+          };
+          ridersMap[key] = riderData; // Append to ridersMap
+          ridersListMotoGPWildCardsAndTestRiders.add(riderData);
         });
       }
+    });
+  }
+
+  Future<void> fetchResultMotoGPRAC() async {
+    DatabaseReference resultsRef = _databaseReference.child(
+        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/RAC');
+
+    resultsRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        print('Data received: ${snapshot.value}');
+        if (snapshot.value is List) {
+          List<dynamic> resultsList =
+              List<dynamic>.from(snapshot.value as List);
+          resultsMotoGPRAC.clear();
+
+          for (int i = 1; i < resultsList.length; i++) {
+            var result = resultsList[i];
+            if (result is Map) {
+              String riderId = result['Id'] ?? 'N/A';
+
+              // Fetch rider details from combined ridersMap
+              Map<String, dynamic> riderDetails = ridersMap[riderId] ??
+                  {
+                    'Id': riderId,
+                    'ImageCountry': 'N/A',
+                    'Country': 'N/A',
+                    'ImageRacer': '',
+                    'Name': 'N/A',
+                    'Team': 'N/A',
+                    'Position': 'N/A',
+                    'Points': 'N/A',
+                    'Victories': 'N/A',
+                  };
+
+              resultsMotoGPRAC.add({
+                'id': i.toString(),
+                'Id': riderId,
+                'Points': result['Points'] ?? 'N/A',
+                'Time': result['Time'] ?? 'N/A',
+                'RiderDetails': riderDetails,
+              });
+            }
+          }
+        } else {
+          print('Unexpected data format: ${snapshot.value.runtimeType}');
+        }
+      }
+    }).catchError((error) {
+      print('Error fetching results: $error');
     });
   }
 }

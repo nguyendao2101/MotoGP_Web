@@ -1,139 +1,144 @@
-import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  String selectedMoto = 'motogp'; // Giá trị chọn của tab 1
-  String selectedRacWup = 'RAC'; // Giá trị chọn của tab 2
-
-  TabController? _tabController;
+class RidersAndTeamsViewModels extends GetxController {
+  final txtSearch = TextEditingController().obs;
+  final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
+  RxList<Map<String, dynamic>> ridersListMotoGP = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> ridersListMotoGPSubstitute =
+      <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> ridersListMotoGPWildCardsAndTestRiders =
+      <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> resultsMotoGPRAC = <Map<String, dynamic>>[].obs;
+  // Temporary storage for rider details
+  Map<String, Map<String, dynamic>> ridersMap = {};
 
   @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+  void onInit() {
+    super.onInit();
+    fetchRidersMotoGP();
+    fetchRidersMotoGPSubstitute();
+    fetchRidersMotoGPWildCardsAndTestRiders();
+    fetchResultMotoGPRAC();
   }
 
-  void _navigateToScreen(String moto, String racWup) {
-    // Điều hướng đến màn hình khác dựa vào sự lựa chọn
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ResultScreen(moto: moto, racWup: racWup),
-      ),
-    );
+  //riders&teams/riders/motogp/official
+  Future<void> fetchRidersMotoGP() async {
+    DatabaseReference officialRidersRef =
+        _databaseReference.child('Riders&Team/Riders/MotoGP/Official');
+
+    officialRidersRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        Map<String, dynamic> ridersMap =
+            Map<String, dynamic>.from(snapshot.value as Map);
+        ridersListMotoGP.clear();
+        ridersMap.forEach((key, value) {
+          ridersListMotoGP.add({
+            'id': key,
+            'ImageCountry': value['ImageCountry'] ?? 'N/A',
+            'Country': value['Country'] ?? 'N/A',
+            'Id': value['Id'] ?? 'N/A',
+            'ImageRacer': value['ImageRacer'] ?? '',
+            'Name': value['Name'] ?? 'N/A',
+            'Team': value['Team'] ?? 'N/A',
+            'Position': value['Position'] ?? 'N/A',
+            'Points': value['Points'] ?? 'N/A',
+            'Victories': value['Victories'] ?? 'N/A',
+          });
+        });
+      }
+    });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('TabBar Example'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'Tab 1'),
-            Tab(text: 'Tab 2'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          // Tab 1: Chọn MotoGP, Moto2, Moto3, MotoE
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownButton<String>(
-                  value: selectedMoto,
-                  items:
-                      ['motogp', 'moto2', 'moto3', 'motoe'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value.toUpperCase()),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedMoto = newValue!;
-                    });
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _navigateToScreen(selectedMoto, selectedRacWup);
-                  },
-                  child: Text('Go to Screen'),
-                ),
-              ],
-            ),
-          ),
-          // Tab 2: Chọn RAC, WUP
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownButton<String>(
-                  value: selectedRacWup,
-                  items: ['RAC', 'WUP'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedRacWup = newValue!;
-                    });
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _navigateToScreen(selectedMoto, selectedRacWup);
-                  },
-                  child: Text('Go to Screen'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+  //riders&teams/riders/motogp/substitute
+  Future<void> fetchRidersMotoGPSubstitute() async {
+    DatabaseReference officialRidersRef =
+        _databaseReference.child('Riders&Team/Riders/MotoGP/Substitute');
+
+    officialRidersRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        Map<String, dynamic> ridersMap =
+            Map<String, dynamic>.from(snapshot.value as Map);
+        ridersListMotoGPSubstitute.clear();
+        ridersMap.forEach((key, value) {
+          ridersListMotoGPSubstitute.add({
+            'id': key,
+            'ImageCountry': value['ImageCountry'] ?? 'N/A',
+            'Country': value['Country'] ?? 'N/A',
+            'Id': value['Id'] ?? 'N/A',
+            'ImageRacer': value['ImageRacer'] ?? '',
+            'Name': value['Name'] ?? 'N/A',
+            'Team': value['Team'] ?? 'N/A',
+            'Position': value['Position'] ?? 'N/A',
+            'Points': value['Points'] ?? 'N/A',
+            'Victories': value['Victories'] ?? 'N/A',
+          });
+        });
+      }
+    });
   }
-}
 
-class ResultScreen extends StatelessWidget {
-  final String moto;
-  final String racWup;
+  //riders&teams/riders/motogp/wildcardsandtestriders
+  Future<void> fetchRidersMotoGPWildCardsAndTestRiders() async {
+    DatabaseReference officialRidersRef = _databaseReference
+        .child('Riders&Team/Riders/MotoGP/WildcardsAndTestRiders');
 
-  ResultScreen({required this.moto, required this.racWup});
+    officialRidersRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        Map<String, dynamic> ridersMap =
+            Map<String, dynamic>.from(snapshot.value as Map);
+        ridersListMotoGPWildCardsAndTestRiders.clear();
+        ridersMap.forEach((key, value) {
+          ridersListMotoGPWildCardsAndTestRiders.add({
+            'id': key,
+            'ImageCountry': value['ImageCountry'] ?? 'N/A',
+            'Country': value['Country'] ?? 'N/A',
+            'Id': value['Id'] ?? 'N/A',
+            'ImageRacer': value['ImageRacer'] ?? '',
+            'Name': value['Name'] ?? 'N/A',
+            'Team': value['Team'] ?? 'N/A',
+            'Position': value['Position'] ?? 'N/A',
+            'Points': value['Points'] ?? 'N/A',
+            'Victories': value['Victories'] ?? 'N/A',
+          });
+        });
+      }
+    });
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Result Screen'),
-      ),
-      body: Center(
-        child: Text('You selected: $moto and $racWup'),
-      ),
-    );
+  Future<void> fetchResultMotoGPRAC() async {
+    DatabaseReference officialRidersRef = _databaseReference.child(
+        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/RAC');
+
+    officialRidersRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        print('Data received: ${snapshot.value}');
+        if (snapshot.value is List) {
+          List<dynamic> resultsList =
+              List<dynamic>.from(snapshot.value as List);
+          resultsMotoGPRAC.clear();
+          // Bỏ qua phần tử đầu tiên nếu nó là null
+          for (int i = 1; i < resultsList.length; i++) {
+            var result = resultsList[i];
+            if (result is Map) {
+              resultsMotoGPRAC.add({
+                'id': i
+                    .toString(), // Chỉ định id nếu bạn không có id gốc từ dữ liệu
+                'Id': result['Id'] ?? 'N/A',
+                'Points': result['Points'] ?? 'N/A',
+                'Time': result['Time'] ?? 'N/A',
+              });
+            }
+          }
+        } else {
+          print('Unexpected data format: ${snapshot.value.runtimeType}');
+        }
+      }
+    });
   }
 }

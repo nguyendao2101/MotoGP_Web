@@ -18,7 +18,6 @@ class _ResultsAndStandingsViewState extends State<ResultsAndStandingsView>
   @override
   void initState() {
     super.initState();
-    // Initialize TabController with 3 tabs and the current index set to 0
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -34,49 +33,32 @@ class _ResultsAndStandingsViewState extends State<ResultsAndStandingsView>
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 50, // Chiều cao tùy chỉnh cho AppBar khi mở rộng
-            floating: true, // Giúp AppBar cuộn theo nội dung
-            snap: true, // AppBar biến mất ngay khi vuốt nhẹ lên
-            pinned: false, // AppBar không giữ lại khi cuộn
+            expandedHeight: 100, // Chiều cao tùy chỉnh cho AppBar khi mở rộng
+            floating: true,
+            snap: true,
+            pinned:
+                true, // Thay đổi thành true nếu bạn muốn giữ lại AppBar khi cuộn
             flexibleSpace: FlexibleSpaceBar(
+              title: TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.red,
+                indicatorWeight: 0.5,
+                labelColor: Colors.white,
+                labelStyle:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                isScrollable: true,
+                tabs: const [
+                  Tab(text: 'RESULTS'),
+                  Tab(text: 'STANDINGS'),
+                  Tab(text: 'RECORDS'),
+                ],
+              ),
               background: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Colors.black,
-                      Color(0xFF3D0000)
-                    ], // Các màu gradient
+                    colors: [Colors.black, Color(0xFF3D0000)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                  ),
-                ),
-                child: SizedBox(
-                  height: 50,
-                  child: Expanded(
-                    flex: 1,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: TabBar(
-                              controller: _tabController,
-                              indicatorColor: Colors.red,
-                              indicatorWeight: 1,
-                              labelColor: Colors.white,
-                              labelStyle: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                              isScrollable: true,
-                              tabs: const [
-                                Tab(text: 'RESULTS'),
-                                Tab(text: 'STANDINGS'),
-                                Tab(text: 'RECORDS'),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ),

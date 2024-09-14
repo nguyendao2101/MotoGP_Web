@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../fire_base/fire_base_auth.dart';
+import '../model/fire_base/fire_base_auth.dart';
 
 class LoginViewModel extends GetxController {
   late TextEditingController emailController = TextEditingController();
