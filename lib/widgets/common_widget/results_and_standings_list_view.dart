@@ -92,7 +92,7 @@ class SliverListResults extends StatelessWidget {
                       top: 50,
                       left: 480,
                       child: Text(
-                        result['Id'],
+                        controller.extractNumbers(result['Id']),
                         style: const TextStyle(
                             fontSize: 20,
                             color: Colors.grey,

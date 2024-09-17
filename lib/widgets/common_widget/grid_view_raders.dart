@@ -6,7 +6,7 @@ import 'package:moto_gp_web/widgets/common_widget/rider_detail.dart';
 import '../../view_model/riders_and_teams_view_models.dart';
 
 class SliverGridRiders extends StatelessWidget {
-  final RidersAndTeamsViewModels controller;
+  final controller;
   final List<dynamic> listDS; // Truyền thêm danh sách ridersListMotoGP
 
   const SliverGridRiders(

@@ -26,6 +26,13 @@ class RidersAndTeamsViewModels extends GetxController {
     fetchResultMotoGPWUP();
   }
 
+  String extractNumbers(String input) {
+    // Sử dụng regex để tìm tất cả các chữ số trong chuỗi
+    RegExp regExp = RegExp(r'\d+');
+    Iterable<RegExpMatch> matches = regExp.allMatches(input);
+    return matches.map((m) => m.group(0)).join();
+  }
+
   // Fetch MotoGP riders' data and store in ridersMap
   Future<void> fetchRidersMotoGP() async {
     DatabaseReference officialRidersRef =
