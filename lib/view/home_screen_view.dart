@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen>
                           padding: const EdgeInsets.only(left: 48),
                           child: TabBar(
                             controller: _tabController,
-                            indicatorColor: ChatColor.gray1,
+                            indicatorColor: Colors.red,
                             indicatorWeight: 1,
                             labelColor: Colors.white,
                             labelStyle: const TextStyle(

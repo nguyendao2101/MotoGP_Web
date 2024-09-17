@@ -1,29 +1,27 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class RidersAndTeamsViewModels extends GetxController {
-  final txtSearch = TextEditingController().obs;
+class Moto3ViewModel extends GetxController {
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
-  RxList<Map<String, dynamic>> ridersListMotoGP = <Map<String, dynamic>>[].obs;
-  RxList<Map<String, dynamic>> ridersListMotoGPSubstitute =
+  RxList<Map<String, dynamic>> ridersListMoto3Official =
       <Map<String, dynamic>>[].obs;
-  RxList<Map<String, dynamic>> ridersListMotoGPWildCardsAndTestRiders =
+  RxList<Map<String, dynamic>> ridersListMoto3Substitute =
       <Map<String, dynamic>>[].obs;
-  RxList<Map<String, dynamic>> resultsMotoGPRAC = <Map<String, dynamic>>[].obs;
-  RxList<Map<String, dynamic>> resultsMotoGPWUP = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> ridersListMoto3WildcardsAndTestRiders =
+      <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> resultsMoto3RAC = <Map<String, dynamic>>[].obs;
 
   // Temporary storage for rider details
   Map<String, Map<String, dynamic>> ridersMap = {};
 
   @override
   void onInit() {
+    // TODO: implement onInit
     super.onInit();
-    fetchRidersMotoGP();
-    fetchRidersMotoGPSubstitute();
-    fetchRidersMotoGPWildCardsAndTestRiders();
-    fetchResultMotoGPRAC();
-    fetchResultMotoGPWUP();
+    fetchRidersMoto3Official();
+    fetchRidersMoto3Substitute();
+    fetchRidersMoto3WildcardsAndTestRiders();
+    fetchResultMoto3RAC();
   }
 
   dynamic zeroToSpace(dynamic input) {
@@ -40,17 +38,18 @@ class RidersAndTeamsViewModels extends GetxController {
     return matches.map((m) => m.group(0)).join();
   }
 
-  // Fetch MotoGP riders' data and store in ridersMap
-  Future<void> fetchRidersMotoGP() async {
+  //moto2/official
+
+  Future<void> fetchRidersMoto3Official() async {
     DatabaseReference officialRidersRef =
-        _databaseReference.child('Riders&Team/Riders/MotoGP/Official');
+        _databaseReference.child('Riders&Team/Riders/Moto3/Official');
 
     officialRidersRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null) {
         Map<String, dynamic> ridersMapData =
             Map<String, dynamic>.from(snapshot.value as Map);
-        ridersListMotoGP.clear();
+        ridersListMoto3Official.clear();
         ridersMapData.forEach((key, value) {
           Map<String, dynamic> riderData = {
             'id': key,
@@ -65,24 +64,24 @@ class RidersAndTeamsViewModels extends GetxController {
             'Victories': value['Victories'] ?? 'N/A',
           };
           ridersMap[key] = riderData; // Update ridersMap without overwriting
-          ridersListMotoGP.add(riderData);
+          ridersListMoto3Official.add(riderData);
         });
       }
     });
   }
 
-  //riders&teams/riders/motogp/substitute
-  Future<void> fetchRidersMotoGPSubstitute() async {
-    DatabaseReference substituteRidersRef =
-        _databaseReference.child('Riders&Team/Riders/MotoGP/Substitute');
+  //moto2/substitute
+  Future<void> fetchRidersMoto3Substitute() async {
+    DatabaseReference officialRidersRef =
+        _databaseReference.child('Riders&Team/Riders/Moto3/Substitute');
 
-    substituteRidersRef.once().then((DatabaseEvent event) {
+    officialRidersRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null) {
-        Map<String, dynamic> substituteRidersMap =
+        Map<String, dynamic> ridersMapData =
             Map<String, dynamic>.from(snapshot.value as Map);
-        ridersListMotoGPSubstitute.clear();
-        substituteRidersMap.forEach((key, value) {
+        ridersListMoto3Substitute.clear();
+        ridersMapData.forEach((key, value) {
           Map<String, dynamic> riderData = {
             'id': key,
             'ImageCountry': value['ImageCountry'] ?? 'N/A',
@@ -95,25 +94,25 @@ class RidersAndTeamsViewModels extends GetxController {
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
           };
-          ridersMap[key] = riderData; // Append to the existing ridersMap
-          ridersListMotoGPSubstitute.add(riderData);
+          ridersMap[key] = riderData; // Update ridersMap without overwriting
+          ridersListMoto3Substitute.add(riderData);
         });
       }
     });
   }
 
-  //riders&teams/riders/motogp/wildcardsandtestriders
-  Future<void> fetchRidersMotoGPWildCardsAndTestRiders() async {
-    DatabaseReference wildcardsRef = _databaseReference
-        .child('Riders&Team/Riders/MotoGP/WildcardsAndTestRiders');
+  //moto2/wildcardsandtestriders
+  Future<void> fetchRidersMoto3WildcardsAndTestRiders() async {
+    DatabaseReference officialRidersRef = _databaseReference
+        .child('Riders&Team/Riders/Moto3/WildcardsAndTestRiders');
 
-    wildcardsRef.once().then((DatabaseEvent event) {
+    officialRidersRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null) {
-        Map<String, dynamic> wildcardRidersMap =
+        Map<String, dynamic> ridersMapData =
             Map<String, dynamic>.from(snapshot.value as Map);
-        ridersListMotoGPWildCardsAndTestRiders.clear();
-        wildcardRidersMap.forEach((key, value) {
+        ridersListMoto3WildcardsAndTestRiders.clear();
+        ridersMapData.forEach((key, value) {
           Map<String, dynamic> riderData = {
             'id': key,
             'ImageCountry': value['ImageCountry'] ?? 'N/A',
@@ -126,16 +125,16 @@ class RidersAndTeamsViewModels extends GetxController {
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
           };
-          ridersMap[key] = riderData; // Append to ridersMap
-          ridersListMotoGPWildCardsAndTestRiders.add(riderData);
+          ridersMap[key] = riderData; // Update ridersMap without overwriting
+          ridersListMoto3WildcardsAndTestRiders.add(riderData);
         });
       }
     });
   }
 
-  Future<void> fetchResultMotoGPRAC() async {
+  Future<void> fetchResultMoto3RAC() async {
     DatabaseReference resultsRef = _databaseReference.child(
-        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/RAC');
+        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/Moto3/RAC');
 
     resultsRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
@@ -144,7 +143,7 @@ class RidersAndTeamsViewModels extends GetxController {
         if (snapshot.value is List) {
           List<dynamic> resultsList =
               List<dynamic>.from(snapshot.value as List);
-          resultsMotoGPRAC.clear();
+          resultsMoto3RAC.clear();
 
           for (int i = 1; i < resultsList.length; i++) {
             var result = resultsList[i];
@@ -165,60 +164,10 @@ class RidersAndTeamsViewModels extends GetxController {
                     'Victories': 'N/A',
                   };
 
-              resultsMotoGPRAC.add({
+              resultsMoto3RAC.add({
                 'id': i.toString(),
                 'Id': riderId,
                 'Points': result['Points'] ?? 'N/A',
-                'Time': result['Time'] ?? 'N/A',
-                'RiderDetails': riderDetails,
-              });
-            }
-          }
-        } else {
-          print('Unexpected data format: ${snapshot.value.runtimeType}');
-        }
-      }
-    }).catchError((error) {
-      print('Error fetching results: $error');
-    });
-  }
-
-  Future<void> fetchResultMotoGPWUP() async {
-    DatabaseReference resultsRef = _databaseReference.child(
-        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/WUP');
-
-    resultsRef.once().then((DatabaseEvent event) {
-      DataSnapshot snapshot = event.snapshot;
-      if (snapshot.value != null) {
-        print('Data received: ${snapshot.value}');
-        if (snapshot.value is List) {
-          List<dynamic> resultsList =
-              List<dynamic>.from(snapshot.value as List);
-          resultsMotoGPWUP.clear();
-
-          for (int i = 1; i < resultsList.length; i++) {
-            var result = resultsList[i];
-            if (result is Map) {
-              String riderId = result['Id'] ?? 'N/A';
-
-              // Fetch rider details from combined ridersMap
-              Map<String, dynamic> riderDetails = ridersMap[riderId] ??
-                  {
-                    'Id': riderId,
-                    'ImageCountry': 'N/A',
-                    'Country': 'N/A',
-                    'ImageRacer': '',
-                    'Name': 'N/A',
-                    'Team': 'N/A',
-                    'Position': 'N/A',
-                    'Points': 'N/A',
-                    'Victories': 'N/A',
-                  };
-
-              resultsMotoGPWUP.add({
-                'id': i.toString(),
-                'Id': riderId,
-                'Gap': result['Gap'] ?? 'N/A',
                 'Time': result['Time'] ?? 'N/A',
                 'RiderDetails': riderDetails,
               });

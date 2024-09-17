@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../view_model/riders_and_teams_view_models.dart';
+
+import '../../view_model/moto2_view_model.dart';
 import 'results_and_standings_list_view.dart';
 
-class ResultsAndStandingsResultsMotogpRac extends StatefulWidget {
-  const ResultsAndStandingsResultsMotogpRac({super.key});
+class ResultsAndStandingsResultsMoto2Rac extends StatefulWidget {
+  const ResultsAndStandingsResultsMoto2Rac({super.key});
 
   @override
-  State<ResultsAndStandingsResultsMotogpRac> createState() =>
-      _ResultsAndStandingsResultsMotogpRacState();
+  State<ResultsAndStandingsResultsMoto2Rac> createState() =>
+      _ResultsAndStandingsResultsMoto2RacState();
 }
 
-class _ResultsAndStandingsResultsMotogpRacState
-    extends State<ResultsAndStandingsResultsMotogpRac> {
+class _ResultsAndStandingsResultsMoto2RacState
+    extends State<ResultsAndStandingsResultsMoto2Rac> {
   @override
   Widget build(BuildContext context) {
-    final controllerRiders = Get.put(RidersAndTeamsViewModels());
+    final controllerRiders = Get.put(Moto2ViewModel());
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
             await Future.wait([
-              controllerRiders.fetchRidersMotoGP(),
-              controllerRiders.fetchRidersMotoGPSubstitute(),
-              controllerRiders.fetchRidersMotoGPWildCardsAndTestRiders(),
-              controllerRiders.fetchResultMotoGPRAC(),
+              controllerRiders.fetchRidersMoto2Official(),
+              controllerRiders.fetchRidersMoto2Substitute(),
+              controllerRiders.fetchRidersMoto2WildcardsAndTestRiders(),
+              controllerRiders.fetchResultMoto2RAC(),
             ]);
           },
           child: CustomScrollView(
@@ -41,14 +42,14 @@ class _ResultsAndStandingsResultsMotogpRacState
                 ),
               ),
               Obx(() {
-                if (controllerRiders.ridersListMotoGP.isEmpty) {
+                if (controllerRiders.resultsMoto2RAC.isEmpty) {
                   return SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
                   return SliverListResults(
                     controller: controllerRiders,
-                    listDS: controllerRiders.resultsMotoGPRAC,
+                    listDS: controllerRiders.resultsMoto2RAC,
                   );
                 }
               }),

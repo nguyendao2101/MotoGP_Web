@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:moto_gp_web/view_model/riders_and_teams_view_models.dart';
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_riders_moto2.dart';
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_riders_moto3.dart';
-import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_riders_motoE.dart';
+import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_riders_motoe.dart';
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_riders_motogp.dart';
 
 class RidersAndTeamsRidersView extends StatefulWidget {

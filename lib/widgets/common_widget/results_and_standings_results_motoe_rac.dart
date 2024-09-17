@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../view_model/riders_and_teams_view_models.dart';
+
+import '../../view_model/motoe_view_model.dart';
 import 'results_and_standings_list_view.dart';
 
-class ResultsAndStandingsResultsMotogpRac extends StatefulWidget {
-  const ResultsAndStandingsResultsMotogpRac({super.key});
+class ResultsAndStandingsResultsMotoeRac extends StatefulWidget {
+  const ResultsAndStandingsResultsMotoeRac({super.key});
 
   @override
-  State<ResultsAndStandingsResultsMotogpRac> createState() =>
-      _ResultsAndStandingsResultsMotogpRacState();
+  State<ResultsAndStandingsResultsMotoeRac> createState() =>
+      _ResultsAndStandingsResultsMotoeRacState();
 }
 
-class _ResultsAndStandingsResultsMotogpRacState
-    extends State<ResultsAndStandingsResultsMotogpRac> {
+class _ResultsAndStandingsResultsMotoeRacState
+    extends State<ResultsAndStandingsResultsMotoeRac> {
   @override
   Widget build(BuildContext context) {
-    final controllerRiders = Get.put(RidersAndTeamsViewModels());
+    final controllerRiders = Get.put(MotoeViewModel());
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
             await Future.wait([
-              controllerRiders.fetchRidersMotoGP(),
-              controllerRiders.fetchRidersMotoGPSubstitute(),
-              controllerRiders.fetchRidersMotoGPWildCardsAndTestRiders(),
-              controllerRiders.fetchResultMotoGPRAC(),
+              controllerRiders.fetchRidersMotoEOfficial(),
+              controllerRiders.fetchResultMotoERAC(),
             ]);
           },
           child: CustomScrollView(
@@ -41,14 +40,14 @@ class _ResultsAndStandingsResultsMotogpRacState
                 ),
               ),
               Obx(() {
-                if (controllerRiders.ridersListMotoGP.isEmpty) {
+                if (controllerRiders.resultsMotoERAC.isEmpty) {
                   return SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
                   return SliverListResults(
                     controller: controllerRiders,
-                    listDS: controllerRiders.resultsMotoGPRAC,
+                    listDS: controllerRiders.resultsMotoERAC,
                   );
                 }
               }),

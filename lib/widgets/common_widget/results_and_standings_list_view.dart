@@ -4,7 +4,7 @@ import 'package:moto_gp_web/widgets/common_widget/rider_detail.dart';
 import '../../view_model/riders_and_teams_view_models.dart';
 
 class SliverListResults extends StatelessWidget {
-  final RidersAndTeamsViewModels controller;
+  final controller;
   final RxList<Map<String, dynamic>> listDS; // Sử dụng RxList từ controller
 
   const SliverListResults(
@@ -75,7 +75,8 @@ class SliverListResults extends StatelessWidget {
                       top: 40,
                       left: 160,
                       child: Text(
-                        result['Points'].toString(),
+                        controller.zeroToSpace(result['Points']).toString(),
+                        // result['Points'].toString(),
                         style:
                             const TextStyle(fontSize: 30, color: Colors.grey),
                       ),
