@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +14,6 @@ class MotoeViewModel extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     fetchRidersMotoEOfficial();
     fetchResultMotoERAC();

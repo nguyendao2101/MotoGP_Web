@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,6 @@ class Moto2ViewModel extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     fetchRidersMoto2Official();
     fetchRidersMoto2Substitute();

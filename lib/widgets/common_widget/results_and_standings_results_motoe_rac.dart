@@ -41,7 +41,7 @@ class _ResultsAndStandingsResultsMotoeRacState
               ),
               Obx(() {
                 if (controllerRiders.resultsMotoERAC.isEmpty) {
-                  return SliverFillRemaining(
+                  return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
@@ -108,14 +108,14 @@ class _ResultsAndStandingsResultsMotoeRacState
   Text _textHeaderBlack(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.black),
+      style: const TextStyle(fontSize: 20, color: Colors.black),
     );
   }
 
   Text _textHeaderGrey(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.grey),
+      style: const TextStyle(fontSize: 20, color: Colors.grey),
     );
   }
 }

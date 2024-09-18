@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/view_model/riders_and_teams_view_models.dart';
@@ -77,9 +79,9 @@ class _RidersAndTeamsRidersViewState extends State<RidersAndTeamsRidersView>
               controller: _tabController,
               children: [
                 RidersAndTeamsRidersMotogp(),
-                RidersAndTeamsRidersMoto2(),
-                RidersAndTeamsRidersMoto3(),
-                RidersAndTeamsRidersMotoe(),
+                const RidersAndTeamsRidersMoto2(),
+                const RidersAndTeamsRidersMoto3(),
+                const RidersAndTeamsRidersMotoe(),
               ],
             ),
           ),

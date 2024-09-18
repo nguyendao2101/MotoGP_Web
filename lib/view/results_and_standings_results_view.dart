@@ -476,7 +476,7 @@ class _ResultsAndStandingsResultsViewState
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 138, 2, 2),
+                    backgroundColor: const Color.fromARGB(255, 138, 2, 2),
                     minimumSize:
                         const Size(200, 100), // Đặt kích thước tối thiểu
                     shape: RoundedRectangleBorder(

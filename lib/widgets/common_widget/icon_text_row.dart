@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moto_gp_web/widgets/common/color_extentionn.dart';
 
 class IconTextRow extends StatelessWidget {
   final String title;

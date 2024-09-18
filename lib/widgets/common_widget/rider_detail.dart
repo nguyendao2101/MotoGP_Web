@@ -4,7 +4,7 @@ import 'package:moto_gp_web/widgets/common/image_extention.dart';
 class RiderDetailScreen extends StatelessWidget {
   final Map<String, dynamic> rider;
 
-  RiderDetailScreen({required this.rider});
+  const RiderDetailScreen({super.key, required this.rider});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class RiderDetailScreen extends StatelessWidget {
             height: 900,
             child: Container(
               width: double.infinity, // Chiều rộng đầy đủ
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.7),
                 borderRadius: BorderRadius.circular(16.0),
@@ -70,7 +70,8 @@ class RiderDetailScreen extends StatelessWidget {
                                 250, // Đảm bảo hình ảnh không quá cao so với chiều cao của container
                             width: 200,
                           )
-                        : Icon(Icons.person, size: 250, color: Colors.grey),
+                        : const Icon(Icons.person,
+                            size: 250, color: Colors.grey),
                   ),
                   // Thông tin của rider
 
@@ -87,7 +88,7 @@ class RiderDetailScreen extends StatelessWidget {
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           rider['Name'],
                           style: const TextStyle(
@@ -95,7 +96,7 @@ class RiderDetailScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Row(
                           children: [
                             Image.network(
@@ -109,10 +110,10 @@ class RiderDetailScreen extends StatelessWidget {
                                   fontSize: 24, color: Colors.white),
                             ),
                             _sizeBoxW4(),
-                            Text(
+                            const Text(
                               '|',
-                              style: const TextStyle(
-                                  color: Colors.grey, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 20),
                             ),
                             _sizeBoxW4(),
                             Text(
@@ -132,7 +133,7 @@ class RiderDetailScreen extends StatelessWidget {
                       height: 130,
                       width: 460,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 39, 33, 33),
+                        color: const Color.fromARGB(255, 39, 33, 33),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
@@ -193,16 +194,16 @@ class RiderDetailScreen extends StatelessWidget {
 
   Widget _currentSeason(String name, String number) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
       child: Column(
         children: [
           Text(
             name,
-            style: TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
           Text(
             number,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
           )
         ],

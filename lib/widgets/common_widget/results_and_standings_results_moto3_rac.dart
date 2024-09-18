@@ -43,7 +43,7 @@ class _ResultsAndStandingsResultsMoto3RacState
               ),
               Obx(() {
                 if (controllerRiders.resultsMoto3RAC.isEmpty) {
-                  return SliverFillRemaining(
+                  return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
@@ -110,14 +110,14 @@ class _ResultsAndStandingsResultsMoto3RacState
   Text _textHeaderBlack(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.black),
+      style: const TextStyle(fontSize: 20, color: Colors.black),
     );
   }
 
   Text _textHeaderGrey(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.grey),
+      style: const TextStyle(fontSize: 20, color: Colors.grey),
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,7 +40,7 @@ class RidersAndTeamsRidersMotogp extends StatelessWidget {
               // SliverGrid for displaying riders
               Obx(() {
                 if (controller.ridersListMotoGP.isEmpty) {
-                  return SliverFillRemaining(
+                  return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
@@ -65,7 +67,7 @@ class RidersAndTeamsRidersMotogp extends StatelessWidget {
               Obx(
                 () {
                   if (controller.ridersListMotoGP.isEmpty) {
-                    return SliverFillRemaining(
+                    return const SliverFillRemaining(
                       child: Center(child: CircularProgressIndicator()),
                     );
                   } else {
@@ -92,7 +94,7 @@ class RidersAndTeamsRidersMotogp extends StatelessWidget {
               Obx(
                 () {
                   if (controller.ridersListMotoGP.isEmpty) {
-                    return SliverFillRemaining(
+                    return const SliverFillRemaining(
                       child: Center(child: CircularProgressIndicator()),
                     );
                   } else {
@@ -114,7 +116,7 @@ class RidersAndTeamsRidersMotogp extends StatelessWidget {
     return Row(
       children: [
         Image.asset(ImageAssest.redFlag, height: 44),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Text(
           text,
           style: const TextStyle(

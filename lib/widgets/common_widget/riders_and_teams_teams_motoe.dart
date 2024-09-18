@@ -11,7 +11,7 @@ class RidersAndTeamsTeamsMotoE extends StatefulWidget {
 class _RidersAndTeamsTeamsMotoEState extends State<RidersAndTeamsTeamsMotoE> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('motoE'),
       ),

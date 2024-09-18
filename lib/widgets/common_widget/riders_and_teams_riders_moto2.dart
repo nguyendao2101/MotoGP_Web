@@ -45,7 +45,7 @@ class _RidersAndTeamsRidersMoto2State extends State<RidersAndTeamsRidersMoto2> {
               // SliverGrid for displaying riders
               Obx(() {
                 if (controller.ridersListMoto2Official.isEmpty) {
-                  return SliverFillRemaining(
+                  return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
@@ -73,7 +73,7 @@ class _RidersAndTeamsRidersMoto2State extends State<RidersAndTeamsRidersMoto2> {
                 () {
                   if (controller
                       .ridersListMoto2WildcardsAndTestRiders.isEmpty) {
-                    return SliverFillRemaining(
+                    return const SliverFillRemaining(
                       child: Center(child: CircularProgressIndicator()),
                     );
                   } else {
@@ -100,7 +100,7 @@ class _RidersAndTeamsRidersMoto2State extends State<RidersAndTeamsRidersMoto2> {
               Obx(
                 () {
                   if (controller.ridersListMoto2Substitute.isEmpty) {
-                    return SliverFillRemaining(
+                    return const SliverFillRemaining(
                       child: Center(child: CircularProgressIndicator()),
                     );
                   } else {
@@ -122,7 +122,7 @@ class _RidersAndTeamsRidersMoto2State extends State<RidersAndTeamsRidersMoto2> {
     return Row(
       children: [
         Image.asset(ImageAssest.redFlag, height: 44),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Text(
           text,
           style: const TextStyle(

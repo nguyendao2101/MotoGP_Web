@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/view/riders_and_teams_legends_view.dart';
@@ -159,12 +161,6 @@ class _RidersAndTeamsViewState extends State<RidersAndTeamsView>
           ),
         ],
       ),
-    );
-  }
-
-  SizedBox _SizeBoxW24() {
-    return const SizedBox(
-      width: 24,
     );
   }
 
