@@ -62,6 +62,32 @@ class Moto3ViewModel extends GetxController {
             'Position': value['Position'] ?? 'N/A',
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
+            'TotalPodiums': value['TotalPodiums'] ?? 'N/A',
+            'TotalPoles': value['TotalPoles'] ?? 'N/A',
+            'TotalRaces': value['TotalRaces'] ?? 'N/A',
+            'TotalVictories': value['TotalVictories'] ?? 'N/A',
+            'TotalWorldChampionships':
+                value['TotalWorldChampionships'] ?? 'N/A',
+            'MotoGPRaces': value['MotoGPRaces'] ?? 'N/A',
+            'MotoGPPoles': value['MotoGPPoles'] ?? 'N/A',
+            'MotoGPPodiums': value['MotoGPPodiums'] ?? 'N/A',
+            'MotoGPVictories': value['MotoGPVictories'] ?? 'N/A',
+            'MotoGPWorldChampionships':
+                value['MotoGPWorldChampionships'] ?? 'N/A',
+            'Moto2Races': value['Moto2Races'] ?? 'N/A',
+            'Moto2Poles': value['Moto2Poles'] ?? 'N/A',
+            'Moto2Podiums': value['Moto2Podiums'] ?? 'N/A',
+            'Moto2Victories': value['Moto2Victories'] ?? 'N/A',
+            'Moto2WorldChampionships':
+                value['Moto2WorldChampionships'] ?? 'N/A',
+            'Moto3Races': value['Moto3Races'] ?? 'N/A',
+            'Moto3Poles': value['Moto3Poles'] ?? 'N/A',
+            'Moto3Podiums': value['Moto3Podiums'] ?? 'N/A',
+            'Moto3Victories': value['Moto3Victories'] ?? 'N/A',
+            'Moto3WorldChampionships':
+                value['Moto3WorldChampionships'] ?? 'N/A',
+            'TeamMateImage': value['TeamMateImage'] ?? 'N/A',
+            'TeamMateName': value['TeamMateName'] ?? 'N/A',
           };
           ridersMap[key] = riderData; // Update ridersMap without overwriting
           ridersListMoto3Official.add(riderData);
@@ -93,6 +119,32 @@ class Moto3ViewModel extends GetxController {
             'Position': value['Position'] ?? 'N/A',
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
+            'TotalPodiums': value['TotalPodiums'] ?? 'N/A',
+            'TotalPoles': value['TotalPoles'] ?? 'N/A',
+            'TotalRaces': value['TotalRaces'] ?? 'N/A',
+            'TotalVictories': value['TotalVictories'] ?? 'N/A',
+            'TotalWorldChampionships':
+                value['TotalWorldChampionships'] ?? 'N/A',
+            'MotoGPRaces': value['MotoGPRaces'] ?? 'N/A',
+            'MotoGPPoles': value['MotoGPPoles'] ?? 'N/A',
+            'MotoGPPodiums': value['MotoGPPodiums'] ?? 'N/A',
+            'MotoGPVictories': value['MotoGPVictories'] ?? 'N/A',
+            'MotoGPWorldChampionships':
+                value['MotoGPWorldChampionships'] ?? 'N/A',
+            'Moto2Races': value['Moto2Races'] ?? 'N/A',
+            'Moto2Poles': value['Moto2Poles'] ?? 'N/A',
+            'Moto2Podiums': value['Moto2Podiums'] ?? 'N/A',
+            'Moto2Victories': value['Moto2Victories'] ?? 'N/A',
+            'Moto2WorldChampionships':
+                value['Moto2WorldChampionships'] ?? 'N/A',
+            'Moto3Races': value['Moto3Races'] ?? 'N/A',
+            'Moto3Poles': value['Moto3Poles'] ?? 'N/A',
+            'Moto3Podiums': value['Moto3Podiums'] ?? 'N/A',
+            'Moto3Victories': value['Moto3Victories'] ?? 'N/A',
+            'Moto3WorldChampionships':
+                value['Moto3WorldChampionships'] ?? 'N/A',
+            'TeamMateImage': value['TeamMateImage'] ?? 'N/A',
+            'TeamMateName': value['TeamMateName'] ?? 'N/A',
           };
           ridersMap[key] = riderData; // Update ridersMap without overwriting
           ridersListMoto3Substitute.add(riderData);
@@ -124,6 +176,32 @@ class Moto3ViewModel extends GetxController {
             'Position': value['Position'] ?? 'N/A',
             'Points': value['Points'] ?? 'N/A',
             'Victories': value['Victories'] ?? 'N/A',
+            'TotalPodiums': value['TotalPodiums'] ?? 'N/A',
+            'TotalPoles': value['TotalPoles'] ?? 'N/A',
+            'TotalRaces': value['TotalRaces'] ?? 'N/A',
+            'TotalVictories': value['TotalVictories'] ?? 'N/A',
+            'TotalWorldChampionships':
+                value['TotalWorldChampionships'] ?? 'N/A',
+            'MotoGPRaces': value['MotoGPRaces'] ?? 'N/A',
+            'MotoGPPoles': value['MotoGPPoles'] ?? 'N/A',
+            'MotoGPPodiums': value['MotoGPPodiums'] ?? 'N/A',
+            'MotoGPVictories': value['MotoGPVictories'] ?? 'N/A',
+            'MotoGPWorldChampionships':
+                value['MotoGPWorldChampionships'] ?? 'N/A',
+            'Moto2Races': value['Moto2Races'] ?? 'N/A',
+            'Moto2Poles': value['Moto2Poles'] ?? 'N/A',
+            'Moto2Podiums': value['Moto2Podiums'] ?? 'N/A',
+            'Moto2Victories': value['Moto2Victories'] ?? 'N/A',
+            'Moto2WorldChampionships':
+                value['Moto2WorldChampionships'] ?? 'N/A',
+            'Moto3Races': value['Moto3Races'] ?? 'N/A',
+            'Moto3Poles': value['Moto3Poles'] ?? 'N/A',
+            'Moto3Podiums': value['Moto3Podiums'] ?? 'N/A',
+            'Moto3Victories': value['Moto3Victories'] ?? 'N/A',
+            'Moto3WorldChampionships':
+                value['Moto3WorldChampionships'] ?? 'N/A',
+            'TeamMateImage': value['TeamMateImage'] ?? 'N/A',
+            'TeamMateName': value['TeamMateName'] ?? 'N/A',
           };
           ridersMap[key] = riderData; // Update ridersMap without overwriting
           ridersListMoto3WildcardsAndTestRiders.add(riderData);
@@ -162,6 +240,28 @@ class Moto3ViewModel extends GetxController {
                     'Position': 'N/A',
                     'Points': 'N/A',
                     'Victories': 'N/A',
+                    'TotalPodiums': 'N/A',
+                    'TotalPoles': 'N/A',
+                    'TotalRaces': 'N/A',
+                    'TotalVictories': 'N/A',
+                    'TotalWorldChampionships': 'N/A',
+                    'MotoGPRaces': 'N/A',
+                    'MotoGPPoles': 'N/A',
+                    'MotoGPPodiums': 'N/A',
+                    'MotoGPVictories': 'N/A',
+                    'MotoGPWorldChampionships': 'N/A',
+                    'Moto2Races': 'N/A',
+                    'Moto2Poles': 'N/A',
+                    'Moto2Podiums': 'N/A',
+                    'Moto2Victories': 'N/A',
+                    'Moto2WorldChampionships': 'N/A',
+                    'Moto3Races': 'N/A',
+                    'Moto3Poles': 'N/A',
+                    'Moto3Podiums': 'N/A',
+                    'Moto3Victories': 'N/A',
+                    'Moto3WorldChampionships': 'N/A',
+                    'TeamMateImage': 'N/A',
+                    'TeamMateName': 'N/A',
                   };
 
               resultsMoto3RAC.add({

@@ -15,6 +15,8 @@ class ImageAssest {
   //home/ridersandteams/riders
   static String search = '$baseImagePath/search.png';
   static String pannerRiders = '$baseImagePath/pannerRiders.png';
+  static String sangNgang = '$baseImagePath/sangNgang.png';
+
   //home/ridersandteam/teams
   static String pannerTeams = '$baseImagePath/pannerTeams.png';
   //home/calendar
