@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -340,10 +342,11 @@ class RidersAndTeamsViewModels extends GetxController {
               resultsMotoGPWUP.add({
                 'id': i.toString(),
                 'Id': riderId,
-                'Points': result['Points'] ?? 'N/A',
+                'Gap': result['Gap'] ?? 'N/A',
                 'Time': result['Time'] ?? 'N/A',
                 'RiderDetails': riderDetails,
               });
+              print('day la $resultsMotoGPWUP');
             }
           }
         } else {

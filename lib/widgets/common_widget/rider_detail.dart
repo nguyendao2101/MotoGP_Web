@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moto_gp_web/widgets/common/color_extentionn.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
-
 import '../../view/results_and_standings_view.dart';
 import '../../view/riders_and_teams_riders_view.dart';
 
 class RiderDetailScreen extends StatelessWidget {
   final Map<String, dynamic> rider;
 
-  RiderDetailScreen({required this.rider});
+  const RiderDetailScreen({super.key, required this.rider});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +65,7 @@ class RiderDetailScreen extends StatelessWidget {
                                   height: 250,
                                   width: 200,
                                 )
-                              : Icon(Icons.person,
+                              : const Icon(Icons.person,
                                   size: 250, color: Colors.grey),
                         ),
                         // Thông tin của rider
@@ -84,7 +82,7 @@ class RiderDetailScreen extends StatelessWidget {
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 rider['Name'],
                                 style: const TextStyle(
@@ -92,7 +90,7 @@ class RiderDetailScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Row(
                                 children: [
                                   Image.network(
@@ -106,9 +104,9 @@ class RiderDetailScreen extends StatelessWidget {
                                         fontSize: 24, color: Colors.white),
                                   ),
                                   _sizeBoxW4(),
-                                  Text(
+                                  const Text(
                                     '|',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.grey, fontSize: 20),
                                   ),
                                   _sizeBoxW4(),
@@ -129,7 +127,7 @@ class RiderDetailScreen extends StatelessWidget {
                             height: 130,
                             width: 450,
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 39, 33, 33),
+                              color: const Color.fromARGB(255, 39, 33, 33),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: Padding(
@@ -206,7 +204,7 @@ class RiderDetailScreen extends StatelessWidget {
                               height: 110,
                               width: 450,
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 39, 33, 33),
+                                color: const Color.fromARGB(255, 39, 33, 33),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: Padding(
@@ -217,7 +215,7 @@ class RiderDetailScreen extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Container(
+                                        SizedBox(
                                             width: 50, // Độ rộng của Container
                                             height: 50, // Độ cao của Container
                                             child: Image.network(
@@ -225,28 +223,28 @@ class RiderDetailScreen extends StatelessWidget {
                                               fit: BoxFit
                                                   .cover, // Đảm bảo ảnh phóng to và lấp đầy
                                             )),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
-                                            Text(
+                                            const Text(
                                               'TEAMMATE',
                                               style: TextStyle(
                                                   fontSize: 24,
                                                   color: Colors.grey),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 4,
                                             ),
                                             Text(
                                               rider['TeamMateName'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white),
@@ -278,7 +276,7 @@ class RiderDetailScreen extends StatelessWidget {
                   Image.asset(ImageAssest.redFlag, height: 44),
                   const Text(
                     'Rider Stats',
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
@@ -458,11 +456,11 @@ class RiderDetailScreen extends StatelessWidget {
         children: [
           Text(
             text,
-            style: TextStyle(fontSize: 20, color: Colors.grey),
+            style: const TextStyle(fontSize: 20, color: Colors.grey),
           ),
           Text(
             number,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 100,
                 fontWeight: FontWeight.bold,
                 color: Colors.black),
@@ -510,16 +508,16 @@ class RiderDetailScreen extends StatelessWidget {
 
   Widget _currentSeason(String name, String number) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
       child: Column(
         children: [
           Text(
             name,
-            style: TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
           Text(
             number,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
           )
         ],

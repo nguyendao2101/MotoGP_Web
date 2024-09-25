@@ -38,14 +38,21 @@ class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
               ),
               Obx(() {
                 if (controllerRiders.ridersListMotoGP.isEmpty) {
-                  return SliverFillRemaining(
+                  return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
+                  print('hello');
                   return SliverListResultsMotoGPWUP(
                     controller: controllerRiders,
                     listDS: controllerRiders.resultsMotoGPWUP,
                   );
+                  // return Center(
+                  //   child: Text(
+                  //     'hello',
+                  //     style: TextStyle(fontSize: 30, color: Colors.black),
+                  //   ),
+                  // );
                 }
               }),
             ],
@@ -105,14 +112,14 @@ class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
   Text _textHeaderBlack(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.black),
+      style: const TextStyle(fontSize: 20, color: Colors.black),
     );
   }
 
   Text _textHeaderGrey(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.grey),
+      style: const TextStyle(fontSize: 20, color: Colors.grey),
     );
   }
 }

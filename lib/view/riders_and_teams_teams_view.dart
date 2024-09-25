@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/view_model/riders_and_teams_view_models.dart';
-import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_riders_moto3.dart';
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_teams_moto2.dart';
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_teams_moto3.dart';
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_teams_motoe.dart';
@@ -36,6 +35,7 @@ class _RidersAndTeamsTeamsViewState extends State<RidersAndTeamsTeamsView>
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final controller = Get.put(RidersAndTeamsViewModels());
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +46,7 @@ class _RidersAndTeamsTeamsViewState extends State<RidersAndTeamsTeamsView>
             children: [
               Expanded(
                 flex: 2,
-                child: Container(
+                child: SizedBox(
                   height: 100, // Đảm bảo Container có chiều cao xác định
                   child: Center(
                     child: Padding(

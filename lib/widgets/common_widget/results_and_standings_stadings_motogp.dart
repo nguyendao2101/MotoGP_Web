@@ -1,33 +1,31 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../view_model/result_and_stadings_standings_motogp_view_model.dart';
+import 'results_and_standings_stadings_list_view.dart';
 
-import '../../view_model/moto2_view_model.dart';
-import 'results_and_standings_list_view.dart';
-
-class ResultsAndStandingsResultsMoto2Rac extends StatefulWidget {
-  const ResultsAndStandingsResultsMoto2Rac({super.key});
+class ResultsAndStandingsStadingsMotogp extends StatefulWidget {
+  const ResultsAndStandingsStadingsMotogp({super.key});
 
   @override
-  State<ResultsAndStandingsResultsMoto2Rac> createState() =>
-      _ResultsAndStandingsResultsMoto2RacState();
+  State<ResultsAndStandingsStadingsMotogp> createState() =>
+      _ResultsAndStandingsStadingsMotogpState();
 }
 
-class _ResultsAndStandingsResultsMoto2RacState
-    extends State<ResultsAndStandingsResultsMoto2Rac> {
+class _ResultsAndStandingsStadingsMotogpState
+    extends State<ResultsAndStandingsStadingsMotogp> {
   @override
   Widget build(BuildContext context) {
-    final controllerRiders = Get.put(Moto2ViewModel());
+    final controllerRiders =
+        Get.put(ResultAndStadingsStandingsMotogpViewModel());
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
             await Future.wait([
-              controllerRiders.fetchRidersMoto2Official(),
-              controllerRiders.fetchRidersMoto2Substitute(),
-              controllerRiders.fetchRidersMoto2WildcardsAndTestRiders(),
-              controllerRiders.fetchResultMoto2RAC(),
+              controllerRiders.fetchRidersMotoGP(),
+              controllerRiders.fetchRidersMotoGPSubstitute(),
+              controllerRiders.fetchRidersMotoGPWildCardsAndTestRiders(),
+              controllerRiders.fetchStandingsMotoGP(),
             ]);
           },
           child: CustomScrollView(
@@ -44,14 +42,14 @@ class _ResultsAndStandingsResultsMoto2RacState
                 ),
               ),
               Obx(() {
-                if (controllerRiders.resultsMoto2RAC.isEmpty) {
-                  return SliverFillRemaining(
+                if (controllerRiders.standingsMotoGP.isEmpty) {
+                  return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
-                  return SliverListResults(
+                  return ResultsAndStandingsStadingsListView(
                     controller: controllerRiders,
-                    listDS: controllerRiders.resultsMoto2RAC,
+                    listDS: controllerRiders.standingsMotoGP,
                   );
                 }
               }),
@@ -86,21 +84,17 @@ class _ResultsAndStandingsResultsMoto2RacState
               children: [
                 _textHeaderBlack('Pos.'),
                 const SizedBox(
-                  width: 85,
-                ),
-                _textHeaderGrey('Pts'),
-                const SizedBox(
-                  width: 360,
+                  width: 380,
                 ),
                 _textHeaderBlack('Rider'),
                 const SizedBox(
-                  width: 360,
+                  width: 460,
                 ),
                 _textHeaderGrey('Team'),
                 const SizedBox(
-                  width: 690,
+                  width: 720,
                 ),
-                _textHeaderBlack('Time/Gap'),
+                _textHeaderBlack('Points'),
               ],
             ),
           ),
@@ -112,14 +106,14 @@ class _ResultsAndStandingsResultsMoto2RacState
   Text _textHeaderBlack(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.black),
+      style: const TextStyle(fontSize: 20, color: Colors.black),
     );
   }
 
   Text _textHeaderGrey(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 20, color: Colors.grey),
+      style: const TextStyle(fontSize: 20, color: Colors.grey),
     );
   }
 }

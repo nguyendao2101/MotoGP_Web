@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
-import 'package:moto_gp_web/widgets/common_widget/test.dart';
 
 import 'grand_prix_card.dart';
 

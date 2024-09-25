@@ -17,7 +17,7 @@ class GrandPrixCard extends StatelessWidget {
   final String grandPrixImage;
 
   const GrandPrixCard({
-    Key? key,
+    super.key,
     required this.dayStart,
     required this.dayEnd,
     required this.grandPrixName,
@@ -29,7 +29,7 @@ class GrandPrixCard extends StatelessWidget {
     required this.grandCountry,
     required this.monthEnd,
     required this.space,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

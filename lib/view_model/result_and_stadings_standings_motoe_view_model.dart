@@ -1,29 +1,25 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
-class MotoeViewModel extends GetxController {
+class ResultAndStadingsStandingsMotoeViewModel extends GetxController {
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref();
-  RxList<Map<String, dynamic>> ridersListMotoEOfficial =
+  RxList<Map<String, dynamic>> ridersListMotoGP = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> ridersListMotoGPSubstitute =
       <Map<String, dynamic>>[].obs;
-  RxList<Map<String, dynamic>> resultsMotoERAC = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> ridersListMotoGPWildCardsAndTestRiders =
+      <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> standingsMotoE = <Map<String, dynamic>>[].obs;
 
-  // Temporary storage for rider details
+// Temporary storage for rider details
   Map<String, Map<String, dynamic>> ridersMap = {};
 
   @override
   void onInit() {
+    fetchRidersMotoE();
+    fetchStandingsMotoE();
     super.onInit();
-    fetchRidersMotoEOfficial();
-    fetchResultMotoERAC();
-  }
-
-  dynamic zeroToSpace(dynamic input) {
-    if (input == 0) {
-      input = ' '; // Thay đổi giá trị trực tiếp trong danh sách
-    }
-    return input;
   }
 
   String extractNumbers(String input) {
@@ -33,9 +29,8 @@ class MotoeViewModel extends GetxController {
     return matches.map((m) => m.group(0)).join();
   }
 
-  //moto2/official
-
-  Future<void> fetchRidersMotoEOfficial() async {
+  // Fetch MotoGP riders' data and store in ridersMap
+  Future<void> fetchRidersMotoE() async {
     DatabaseReference officialRidersRef =
         _databaseReference.child('Riders&Team/Riders/MotoE/Official');
 
@@ -44,7 +39,7 @@ class MotoeViewModel extends GetxController {
       if (snapshot.value != null) {
         Map<String, dynamic> ridersMapData =
             Map<String, dynamic>.from(snapshot.value as Map);
-        ridersListMotoEOfficial.clear();
+        ridersListMotoGP.clear();
         ridersMapData.forEach((key, value) {
           Map<String, dynamic> riderData = {
             'id': key,
@@ -81,19 +76,19 @@ class MotoeViewModel extends GetxController {
             'Moto3Victories': value['Moto3Victories'] ?? 'N/A',
             'Moto3WorldChampionships':
                 value['Moto3WorldChampionships'] ?? 'N/A',
-            'TeamMateImage': 'N/A',
-            'TeamMateName': 'N/A',
+            'TeamMateImage': value['TeamMateImage'] ?? 'N/A',
+            'TeamMateName': value['TeamMateName'] ?? 'N/A',
           };
           ridersMap[key] = riderData; // Update ridersMap without overwriting
-          ridersListMotoEOfficial.add(riderData);
+          ridersListMotoGP.add(riderData);
         });
       }
     });
   }
 
-  Future<void> fetchResultMotoERAC() async {
-    DatabaseReference resultsRef = _databaseReference.child(
-        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoE/RAC');
+  Future<void> fetchStandingsMotoE() async {
+    DatabaseReference resultsRef = _databaseReference
+        .child('Results&Standings/Standings/2024/RidersChampionship/MotoE');
 
     resultsRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
@@ -102,7 +97,7 @@ class MotoeViewModel extends GetxController {
         if (snapshot.value is List) {
           List<dynamic> resultsList =
               List<dynamic>.from(snapshot.value as List);
-          resultsMotoERAC.clear();
+          standingsMotoE.clear();
 
           for (int i = 1; i < resultsList.length; i++) {
             var result = resultsList[i];
@@ -145,11 +140,10 @@ class MotoeViewModel extends GetxController {
                     'TeamMateName': 'N/A',
                   };
 
-              resultsMotoERAC.add({
+              standingsMotoE.add({
                 'id': i.toString(),
                 'Id': riderId,
                 'Points': result['Points'] ?? 'N/A',
-                'Time': result['Time'] ?? 'N/A',
                 'RiderDetails': riderDetails,
               });
             }

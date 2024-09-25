@@ -32,7 +32,7 @@ class _RidersAndTeamsLegendsViewState extends State<RidersAndTeamsLegendsView> {
           ),
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text('legends'),
       ),
     );

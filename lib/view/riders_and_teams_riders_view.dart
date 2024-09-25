@@ -33,6 +33,7 @@ class _RidersAndTeamsRidersViewState extends State<RidersAndTeamsRidersView>
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final controller = Get.put(RidersAndTeamsViewModels());
     return Scaffold(
       body: CustomScrollView(
@@ -77,9 +78,9 @@ class _RidersAndTeamsRidersViewState extends State<RidersAndTeamsRidersView>
               controller: _tabController,
               children: [
                 RidersAndTeamsRidersMotogp(),
-                RidersAndTeamsRidersMoto2(),
-                RidersAndTeamsRidersMoto3(),
-                RidersAndTeamsRidersMotoe(),
+                const RidersAndTeamsRidersMoto2(),
+                const RidersAndTeamsRidersMoto3(),
+                const RidersAndTeamsRidersMotoe(),
               ],
             ),
           ),

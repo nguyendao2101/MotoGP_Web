@@ -1,20 +1,18 @@
-// ignore_for_file: invalid_use_of_protected_member
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/widgets/common_widget/rider_detail.dart';
-import '../../view_model/riders_and_teams_view_models.dart';
 
-class SliverListResultsMotoGPWUP extends StatelessWidget {
-  final RidersAndTeamsViewModels controller;
+class ResultsAndStandingsStadingsListView extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
+  final controller;
   final RxList<Map<String, dynamic>> listDS; // Sử dụng RxList từ controller
-
-  const SliverListResultsMotoGPWUP(
-      {super.key, required this.controller, required this.listDS});
+  const ResultsAndStandingsStadingsListView(
+      {super.key, this.controller, required this.listDS});
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      // ignore: invalid_use_of_protected_member
       final resultsList = listDS.value;
 
       if (resultsList.isEmpty) {
@@ -41,7 +39,23 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.white, // Màu nền của Container
+                          gradient: result['id'] == '1'
+                              ? const LinearGradient(
+                                  colors: [
+                                    Color(0xFF1E201E),
+                                    Color(0xFF4F1787)
+                                  ], // Các màu gradient
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                )
+                              : const LinearGradient(
+                                  colors: [
+                                    Colors.white,
+                                    Colors.white
+                                  ], // Gradient mặc định nếu id không phải là 1
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -58,14 +72,20 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
                             children: [
                               Text(
                                 '#${result['id']}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 32),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32,
+                                    color: result['id'] == '1'
+                                        ? Colors.white
+                                        : Colors.black),
                               ),
                               Text(
-                                result['Time'],
-                                style: const TextStyle(
+                                result['Points'].toString(),
+                                style: TextStyle(
                                     fontSize: 20,
-                                    color: Colors.black,
+                                    color: result['id'] == '1'
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -75,7 +95,7 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
                     ),
                     Positioned(
                       top: 15,
-                      left: 130,
+                      left: 120,
                       child: Image.network(
                         riderDetails['ImageRacer'],
                         height: 90,
@@ -86,9 +106,11 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
                       left: 380,
                       child: Text(
                         controller.extractNumbers(result['Id']),
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 20,
-                            color: Colors.grey,
+                            color: result['id'] == '1'
+                                ? Colors.white
+                                : Colors.grey,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -103,16 +125,19 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
                         },
                         child: Text(
                           riderDetails['Name'],
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: result['id'] == '1'
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
                       ),
                     ),
                     Positioned(
                       top: 55,
-                      left: 780,
+                      left: 880,
                       child: Image.network(
                         riderDetails['ImageCountry'],
                         height: 20,
@@ -120,20 +145,14 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
                     ),
                     Positioned(
                       top: 50,
-                      left: 840,
+                      left: 940,
                       child: Text(
                         riderDetails['Team'],
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.grey),
-                      ),
-                    ),
-                    Positioned(
-                      top: 45,
-                      left: 1540,
-                      child: Text(
-                        result['Gap'],
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.grey),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color:
+                              result['id'] == '1' ? Colors.white : Colors.grey,
+                        ),
                       ),
                     ),
                   ],

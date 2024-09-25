@@ -162,12 +162,6 @@ class _RidersAndTeamsViewState extends State<RidersAndTeamsView>
     );
   }
 
-  SizedBox _SizeBoxW24() {
-    return const SizedBox(
-      width: 24,
-    );
-  }
-
   Text _textTopAppbar(String text) {
     return Text(
       text,

@@ -1,9 +1,10 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/view_model/calendar_view_model.dart';
 import 'package:moto_gp_web/widgets/common_widget/calendar_all_events.dart';
 import 'package:moto_gp_web/widgets/common_widget/calendar_grands_prix.dart';
-import '../widgets/common/image_extention.dart';
 
 class CalendarView extends StatefulWidget {
   const CalendarView({super.key});
@@ -38,7 +39,7 @@ class _CalendarViewState extends State<CalendarView>
             expandedHeight: 140, // Chiều cao tối đa khi mở rộng
             pinned: false, // Giữ lại trên đầu khi cuộn lên
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: EdgeInsets.symmetric(horizontal: 16.0),
+              titlePadding: const EdgeInsets.symmetric(horizontal: 16.0),
               background: Column(
                 children: [
                   Container(
@@ -54,14 +55,14 @@ class _CalendarViewState extends State<CalendarView>
                         end: Alignment.bottomRight,
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 72),
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 72),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             '2024 Calendar',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 48,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
