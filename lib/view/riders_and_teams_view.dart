@@ -150,9 +150,9 @@ class _RidersAndTeamsViewState extends State<RidersAndTeamsView>
           SliverFillRemaining(
             child: TabBarView(
               controller: _tabController,
-              children: const [
-                RidersAndTeamsRidersView(),
-                RidersAndTeamsTeamsView(),
+              children: [
+                const RidersAndTeamsRidersView(),
+                const RidersAndTeamsTeamsView(),
                 RidersAndTeamsLegendsView(),
               ],
             ),

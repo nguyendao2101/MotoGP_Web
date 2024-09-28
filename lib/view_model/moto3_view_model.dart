@@ -39,7 +39,7 @@ class Moto3ViewModel extends GetxController {
     return matches.map((m) => m.group(0)).join();
   }
 
-  //moto2/official
+  //moto3/official
 
   Future<void> fetchRidersMoto3Official() async {
     DatabaseReference officialRidersRef =
@@ -97,7 +97,7 @@ class Moto3ViewModel extends GetxController {
     });
   }
 
-  //moto2/substitute
+  //moto3/substitute
   Future<void> fetchRidersMoto3Substitute() async {
     DatabaseReference officialRidersRef =
         _databaseReference.child('Riders&Team/Riders/Moto3/Substitute');

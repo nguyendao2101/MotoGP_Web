@@ -1,15 +1,14 @@
-import 'dart:math';
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moto_gp_web/widgets/common_widget/rider_detail.dart';
 
-class SliverGridRiders extends StatelessWidget {
-  // ignore: prefer_typing_uninitialized_variables
+import 'riders_legends_detail.dart';
+
+class GridViewLegends extends StatelessWidget {
   final controller;
-  final List<dynamic> listDS; // Truyền thêm danh sách ridersListMotoGP
-
-  const SliverGridRiders(
-      {super.key, required this.controller, required this.listDS});
+  final List<dynamic> listDS;
+  const GridViewLegends({super.key, this.controller, required this.listDS});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class SliverGridRiders extends StatelessWidget {
                     listDS[index]; // Sử dụng ridersListMotoGP truyền vào
                 return InkWell(
                   onTap: () {
-                    Get.to(() => RiderDetailScreen(rider: rider));
+                    Get.to(() => RidersLegendsDetail(rider: rider));
                   },
                   child: GridTile(
                     footer: Container(
@@ -47,13 +46,6 @@ class SliverGridRiders extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '#${rider['Id']}',
-                            style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
                           Text(
                             rider['Name'],
                             style: const TextStyle(
@@ -80,7 +72,7 @@ class SliverGridRiders extends StatelessWidget {
                                       color: Colors.grey, fontSize: 20)),
                               const SizedBox(width: 4),
                               Text(
-                                rider['Team'],
+                                rider['Years Active'],
                                 style: const TextStyle(color: Colors.white),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -93,13 +85,12 @@ class SliverGridRiders extends StatelessWidget {
                       fit: StackFit.expand,
                       children: [
                         Container(
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
                             gradient: LinearGradient(
                               colors: [
                                 Colors.black,
-                                _randomColor(),
+                                Color(0xFF3B3030),
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -124,16 +115,5 @@ class SliverGridRiders extends StatelessWidget {
         );
       }
     });
-  }
-
-  // Hàm tạo màu ngẫu nhiên
-  Color _randomColor() {
-    final Random random = Random();
-    return Color.fromARGB(
-      255,
-      random.nextInt(256),
-      random.nextInt(256),
-      random.nextInt(256),
-    );
   }
 }
