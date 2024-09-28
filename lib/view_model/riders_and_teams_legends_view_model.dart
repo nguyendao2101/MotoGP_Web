@@ -21,7 +21,9 @@ class RidersAndTeamsLegendsViewModel extends GetxController {
 
     officialRidersRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
+
       if (snapshot.value != null) {
+        print('day la tu legends: ${snapshot.value}');
         Map<String, dynamic> ridersMapData =
             Map<String, dynamic>.from(snapshot.value as Map);
         ridersListLegends.clear();

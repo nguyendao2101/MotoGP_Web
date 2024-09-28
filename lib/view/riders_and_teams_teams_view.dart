@@ -39,32 +39,12 @@ class _RidersAndTeamsTeamsViewState extends State<RidersAndTeamsTeamsView>
     final controller = Get.put(RidersAndTeamsViewModels());
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 210,
+        toolbarHeight: 50,
         title: SizedBox(
-          height: 200, // Đảm bảo có chiều cao cụ thể cho SizedBox
+          height: 50, // Đảm bảo có chiều cao cụ thể cho SizedBox
           child: Column(
             children: [
-              Expanded(
-                flex: 2,
-                child: SizedBox(
-                  height: 100, // Đảm bảo Container có chiều cao xác định
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 10,
-                      ),
-                      child: Image.asset(
-                        ImageAssest.pannerTeams,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Expanded(
-                  flex: 1,
-                  child: SizedBox(height: 50)), // Thêm chiều cao cụ thể
+              // Thêm chiều cao cụ thể
               Expanded(
                   flex: 1,
                   child: TabBar(
