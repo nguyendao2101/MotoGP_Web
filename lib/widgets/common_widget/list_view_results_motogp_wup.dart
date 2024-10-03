@@ -22,6 +22,8 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
           child: Center(child: CircularProgressIndicator()),
         );
       } else {
+        sortResultsByTime(resultsList);
+
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           sliver: SliverList(
@@ -145,6 +147,28 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
           ),
         );
       }
+    });
+  }
+
+  void sortResultsByTime(List<Map<String, dynamic>> resultsList) {
+    // Hàm chuyển đổi chuỗi thời gian thành giây
+    double convertTimeToSeconds(String time) {
+      // Tách thời gian ra theo phút, giây và mili giây
+      List<String> parts = time.split(':');
+      int minutes = int.parse(parts[0]);
+      List<String> secondsParts = parts[1].split('.');
+      int seconds = int.parse(secondsParts[0]);
+      int milliseconds = int.parse(secondsParts[1]);
+
+      // Tính tổng số giây
+      return minutes * 60 + seconds + milliseconds / 1000;
+    }
+
+    // Sắp xếp danh sách dựa trên giá trị thời gian đã chuyển đổi
+    resultsList.sort((a, b) {
+      double timeA = convertTimeToSeconds(a['Time']);
+      double timeB = convertTimeToSeconds(b['Time']);
+      return timeA.compareTo(timeB); // Sắp xếp tăng dần
     });
   }
 }

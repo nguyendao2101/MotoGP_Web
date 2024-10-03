@@ -20,6 +20,9 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
           child: Center(child: CircularProgressIndicator()),
         );
       } else {
+        // Sắp xếp danh sách theo điểm số tăng dần
+        resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           sliver: SliverList(

@@ -21,6 +21,8 @@ class SliverListResults extends StatelessWidget {
           child: Center(child: CircularProgressIndicator()),
         );
       } else {
+        resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           sliver: SliverList(
