@@ -139,7 +139,7 @@ class _ResultsAndStandingsStandingsViewState
       body: Stack(children: [
         Positioned.fill(
           child: Image.asset(
-            ImageAssest.backgroundResults,
+            ImageAssest.backgroundStadings,
             fit: BoxFit.cover,
           ),
         ),
@@ -322,7 +322,7 @@ class _ResultsAndStandingsStandingsViewState
                 ),
 
                 const SizedBox(
-                  height: 420,
+                  height: 1000,
                 )
               ],
             ),

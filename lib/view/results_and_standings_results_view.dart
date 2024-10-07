@@ -492,7 +492,7 @@ class _ResultsAndStandingsResultsViewState
                 ),
 
                 const SizedBox(
-                  height: 420,
+                  height: 1000,
                 )
               ],
             ),

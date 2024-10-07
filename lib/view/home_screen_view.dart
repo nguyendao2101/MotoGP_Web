@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/view/calendar_view.dart';
 import 'package:moto_gp_web/view/news_view.dart';
+import 'package:moto_gp_web/view/results_and_standings_results_view.dart';
 import 'package:moto_gp_web/view/results_and_standings_view.dart';
 import 'package:moto_gp_web/view/riders_and_teams_view.dart';
 import 'package:moto_gp_web/view/video_pass_view.dart';
@@ -12,6 +13,8 @@ import 'package:moto_gp_web/view_model/home_screen_view_model.dart';
 import 'package:moto_gp_web/widgets/common/color_extentionn.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
 import 'package:moto_gp_web/widgets/common_widget/icon_text_row.dart';
+
+import 'results_and_standings_standings_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -71,14 +74,29 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
               ),
-              IconTextRow(title: 'Calendar', onTap: controller.closeDrawer),
-              _dividerDrawer(),
-              IconTextRow(title: 'Results', onTap: controller.closeDrawer),
-              _dividerDrawer(),
-              IconTextRow(title: 'Standings', onTap: controller.closeDrawer),
+              IconTextRow(
+                  title: 'Calendar',
+                  onTap: () {
+                    Get.to(() => const CalendarView());
+                  }),
               _dividerDrawer(),
               IconTextRow(
-                  title: 'Riders & Team', onTap: controller.closeDrawer),
+                  title: 'Results',
+                  onTap: () {
+                    Get.to(() => const ResultsAndStandingsResultsView());
+                  }),
+              _dividerDrawer(),
+              IconTextRow(
+                  title: 'Standings',
+                  onTap: () {
+                    Get.to(() => const ResultsAndStandingsStandingsView());
+                  }),
+              _dividerDrawer(),
+              IconTextRow(
+                  title: 'Riders & Team',
+                  onTap: () {
+                    Get.to(() => const RidersAndTeamsView());
+                  }),
               _dividerDrawer(),
               IconTextRow(title: 'VideoPass', onTap: controller.closeDrawer),
               _dividerDrawer(),

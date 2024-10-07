@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/view_model/calendar_view_model.dart';
-import 'package:moto_gp_web/widgets/common_widget/calendar_all_events.dart';
-import 'package:moto_gp_web/widgets/common_widget/calendar_grands_prix.dart';
 
 import '../widgets/common_widget/calendar_all_events_fb.dart';
 import '../widgets/common_widget/calendar_grands_prix_fb.dart';

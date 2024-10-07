@@ -64,4 +64,7 @@ class ImageAssest {
   //results
   static String muiTen = '$baseImagePath/muiTen.png';
   static String backgroundResults = '$baseImagePath/backgroundResults.png';
+  //stadings
+  static String backgroundStadings = '$baseImagePath/backgroundStanding.png';
+
 }
