@@ -6,6 +6,9 @@ import 'package:moto_gp_web/view_model/calendar_view_model.dart';
 import 'package:moto_gp_web/widgets/common_widget/calendar_all_events.dart';
 import 'package:moto_gp_web/widgets/common_widget/calendar_grands_prix.dart';
 
+import '../widgets/common_widget/calendar_all_events_fb.dart';
+import '../widgets/common_widget/calendar_grands_prix_fb.dart';
+
 class CalendarView extends StatefulWidget {
   const CalendarView({super.key});
 
@@ -93,8 +96,10 @@ class _CalendarViewState extends State<CalendarView>
             child: TabBarView(
               controller: _tabController,
               children: const [
-                CalendarGrandsPrix(),
-                CalendarAllEvents(),
+                CalendarGrandsPrixFb(),
+                CalendarAllEventsFb(),
+                // CalendarGrandsPrix(),
+                // CalendarAllEvents(),
               ],
             ),
           ),
