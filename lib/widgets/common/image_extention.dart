@@ -67,4 +67,7 @@ class ImageAssest {
   //stadings
   static String backgroundStadings = '$baseImagePath/backgroundStanding.png';
 
+  //pdf
+
+  static String pdfMotogp = '$baseImagePath/pdf.png';
 }

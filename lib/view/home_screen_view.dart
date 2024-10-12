@@ -14,6 +14,7 @@ import 'package:moto_gp_web/widgets/common/color_extentionn.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
 import 'package:moto_gp_web/widgets/common_widget/icon_text_row.dart';
 
+import 'info_user_view.dart';
 import 'results_and_standings_standings_view.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -224,7 +225,9 @@ class _HomeScreenState extends State<HomeScreen>
                         right:
                             0, // Hoặc left: 0 nếu bạn muốn hình ảnh nằm bên trái
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => const InfoUserView());
+                          },
                           child: Image.asset(
                             ImageAssest.user,
                             height: 32,

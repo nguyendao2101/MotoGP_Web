@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:moto_gp_web/view/home_screen_view.dart';
 
 import 'firebase_options.dart';
+import 'view/login_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,8 +26,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: const LoginView(),
-      home: const HomeScreen(),
+      home: const LoginView(),
+      // home: const HomeScreen(),
     );
   }
 }

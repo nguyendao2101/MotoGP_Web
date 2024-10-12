@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moto_gp_web/model/to_pdf_motogp.dart';
 import 'package:moto_gp_web/view_model/pdf_motogp.dart';
 import '../../view_model/result_and_stadings_standings_motogp_view_model.dart';
 import 'results_and_standings_stadings_list_view.dart';
+import 'table_stadings_motogp.dart';
 
 class ResultsAndStandingsStadingsMotogp extends StatefulWidget {
   const ResultsAndStandingsStadingsMotogp({super.key});
@@ -20,7 +20,6 @@ class _ResultsAndStandingsStadingsMotogpState
     final controllerRiders =
         Get.put(ResultAndStadingsStandingsMotogpViewModel());
     final controllerPDF = Get.put(PdfMotogp());
-    final excelService = ExcelService();
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
@@ -63,9 +62,8 @@ class _ResultsAndStandingsStadingsMotogpState
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () async {
-                          await excelService
-                              .updateExistingExcel(controllerPDF.ridersMotoGP);
+                        onPressed: () {
+                          Get.to(() => const TableStadingsMotogp());
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
@@ -78,10 +76,69 @@ class _ResultsAndStandingsStadingsMotogpState
                             vertical: 10,
                           ),
                         ),
-                        child: const Text('Championship MotoGP 2024'),
+                        child: const Text('Championship MotoGP 2024 Rider'),
                       ),
                       const SizedBox(
-                        height: 200,
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.to(() => const TableStadingsMotogp());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                        ),
+                        child:
+                            const Text('Championship MotoGP 2024 Constructer'),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.to(() => const TableStadingsMotogp());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                        ),
+                        child: const Text('Championship MotoGP 2024 Team'),
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
