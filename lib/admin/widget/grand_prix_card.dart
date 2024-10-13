@@ -159,10 +159,14 @@ class GrandPrixCard extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          top: -20,
+                          top: -25,
                           left: 220,
                           child: IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.blue),
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Colors.blue,
+                              size: 30,
+                            ),
                             onPressed: () {
                               // Hiển thị dialog chỉnh sửa
                               _showEditDialog(
@@ -171,10 +175,14 @@ class GrandPrixCard extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          top: -20,
-                          left: 250,
+                          top: -25,
+                          left: 260,
                           child: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                              size: 30,
+                            ),
                             onPressed: () async {
                               try {
                                 // Lấy ID của tài liệu từ dữ liệu của calendar
@@ -437,9 +445,6 @@ class GrandPrixCard extends StatelessWidget {
                           'MonthStart': monthStartController.text,
                           'MonthEnd': monthEndController.text,
                           'Status': statusController.text,
-                          // 'Image': imageDetailController.text,
-                          // 'ImageCountry': imageController.text,
-                          // 'ImageDetail': imageCountryController.text,
                           'Image': imageController.text,
                           'ImageCountry': imageCountryController.text,
                           'ImageDetail': imageDetailController.text,
@@ -492,9 +497,9 @@ class GrandPrixCard extends StatelessWidget {
                           'MonthStart': monthStartController.text,
                           'MonthEnd': monthEndController.text,
                           'Status': statusController.text,
-                          'Image': imageDetailController.text,
-                          'ImageCountry': imageController.text,
-                          'ImageDetail': imageCountryController.text,
+                          'Image': imageController.text,
+                          'ImageCountry': imageCountryController.text,
+                          'ImageDetail': imageDetailController.text,
                         });
 
                         // Cập nhật lại danh sách trong ứng dụng
@@ -508,9 +513,9 @@ class GrandPrixCard extends StatelessWidget {
                           'MonthStart': monthStartController.text,
                           'MonthEnd': monthEndController.text,
                           'Status': statusController.text,
-                          'Image': imageDetailController.text,
-                          'ImageCountry': imageController.text,
-                          'ImageDetail': imageCountryController.text,
+                          'Image': imageController.text,
+                          'ImageCountry': imageCountryController.text,
+                          'ImageDetail': imageDetailController.text,
                         };
 
                         // Đóng dialog sau khi cập nhật thành công

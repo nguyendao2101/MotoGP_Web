@@ -35,6 +35,8 @@ class CalendarViewModel extends GetxController {
 
   // add calendar
   RxList<Map<String, dynamic>> addCalendar = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> addCalendarAllEvents =
+      <Map<String, dynamic>>[].obs;
 
   //
   Map<String, Map<String, dynamic>> calendarMap = {};
@@ -67,6 +69,7 @@ class CalendarViewModel extends GetxController {
     fetchGrandsPrixNovember();
     //add calendar
     fetchAddCalendar();
+    fetchAddCalendarAllEvents();
   }
 
   // add calendar
@@ -99,6 +102,41 @@ class CalendarViewModel extends GetxController {
             'Status': value['Status'] ?? 'N/A',
           };
           addCalendar.add(riderData);
+        });
+      }
+    });
+  }
+
+  // add calendar
+  Future<void> fetchAddCalendarAllEvents() async {
+    DatabaseReference officialRidersRef =
+        _databaseReference.child('Calendar/AllEvents/AddCalendar');
+
+    officialRidersRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      print('kieu du lieu cua addcalendar: ${snapshot.value.runtimeType}');
+
+      if (snapshot.value != null) {
+        // print('day la tu legends: ${snapshot.value}');
+        Map<String, dynamic> ridersMapData =
+            Map<String, dynamic>.from(snapshot.value as Map);
+        addCalendarAllEvents.clear();
+        ridersMapData.forEach((key, value) {
+          Map<String, dynamic> riderData = {
+            'id': key,
+            'Category': value['Category'] ?? 'N/A',
+            'DayEnd': value['DayEnd'] ?? 'N/A',
+            'DayStart': value['DayStart'] ?? 'N/A',
+            'EventName': value['EventName'] ?? 'N/A',
+            'Image': value['Image'] ?? 'N/A',
+            'ImageCountry': value['ImageCountry'] ?? 'N/A',
+            'ImageDetail': value['ImageDetail'] ?? 'N/A',
+            'Location': value['Location'] ?? 'N/A',
+            'MonthEnd': value['MonthEnd'] ?? 'N/A',
+            'MonthStart': value['MonthStart'] ?? 'N/A',
+            'Status': value['Status'] ?? 'N/A',
+          };
+          addCalendarAllEvents.add(riderData);
         });
       }
     });

@@ -28,7 +28,8 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _grandsPrixMonth('Calendar Add'),
                       Row(
@@ -428,7 +429,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'ImageCountry'),
+                  decoration: const InputDecoration(labelText: 'ImageDetail'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Add Image';
@@ -440,7 +441,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'ImageDetail'),
+                  decoration: const InputDecoration(labelText: 'Image'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Add ImageCountry';
@@ -452,7 +453,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Image'),
+                  decoration: const InputDecoration(labelText: 'ImageCountry'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Add ImageDetail';
