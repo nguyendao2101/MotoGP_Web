@@ -1,10 +1,9 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-
+import 'package:moto_gp_web/admin/widget/grand_prix_card.dart';
 import '../../view_model/calendar_view_model.dart';
-import '../common/image_extention.dart';
-import 'grand_prix_card.dart';
+import '../../widgets/common/image_extention.dart';
 
 class CalendarGrandsPrixFb extends StatefulWidget {
   const CalendarGrandsPrixFb({super.key});
@@ -14,25 +13,14 @@ class CalendarGrandsPrixFb extends StatefulWidget {
 }
 
 class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
+  final controller = Get.put(CalendarViewModel());
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CalendarViewModel());
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () async {
-            await Future.wait([
-              controller.fetchGrandsPrixMarch(),
-              controller.fetchGrandsPrixApril(),
-              controller.fetchGrandsPrixMay(),
-              controller.fetchGrandsPrixJune(),
-              controller.fetchGrandsPrixJuly(),
-              controller.fetchGrandsPrixAugust(),
-              controller.fetchGrandsPrixSeptember(),
-              controller.fetchGrandsPrixOctober(),
-              controller.fetchGrandsPrixNovember(),
-            ]);
-          },
+          onRefresh: _refreshData,
           child: CustomScrollView(
             slivers: [
               // Sliver header
@@ -42,27 +30,58 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                       const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
                   child: Column(
                     children: [
+                      _grandsPrixMonth('Calendar Add'),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              _showInputDialog(context, controller);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: Image.asset(
+                                ImageAssest.add,
+                                height: 40,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.refresh,
+                              size: 30,
+                            ),
+                            onPressed: () async {
+                              await _refreshData(); // Gọi phương thức refresh dữ liệu
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Obx(() {
+                if (controller.grandsPrixMarch.isEmpty) {
+                  return const SliverFillRemaining(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                } else {
+                  return GrandPrixCard(
+                    controller: controller,
+                    listDS: controller.addCalendar,
+                  );
+                }
+              }),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Column(
+                    children: [
                       _grandsPrixMonth('March'),
-                      // InkWell(
-                      //   onTap: () {
-                      //     _showInputDialog(context);
-                      //   },
-                      //   child: Row(
-                      //     children: [
-                      //       Image.asset(
-                      //         ImageAssest.add,
-                      //         height: 48,
-                      //       ),
-                      //       const Text(
-                      //         'Add Calendar',
-                      //         style: TextStyle(
-                      //             fontSize: 30,
-                      //             color: Colors.black,
-                      //             fontWeight: FontWeight.bold),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
@@ -284,7 +303,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
     );
   }
 
-  void _showInputDialog(BuildContext context) {
+  void _showInputDialog(BuildContext context, CalendarViewModel controller) {
     final _formKey = GlobalKey<FormState>();
     String Category = '';
     String DayEnd = '';
@@ -297,6 +316,10 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
     String MonthEnd = '';
     String MonthStart = '';
     String Status = '';
+
+    // Khởi tạo database reference
+    final DatabaseReference database =
+        FirebaseDatabase.instance.ref('Calendar/GrandsPrix/AddCalendar');
 
     showDialog(
       context: context,
@@ -405,7 +428,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Image'),
+                  decoration: const InputDecoration(labelText: 'ImageCountry'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Add Image';
@@ -417,7 +440,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'ImageCountry'),
+                  decoration: const InputDecoration(labelText: 'ImageDetail'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Add ImageCountry';
@@ -429,7 +452,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'ImageDetail'),
+                  decoration: const InputDecoration(labelText: 'Image'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Add ImageDetail';
@@ -451,20 +474,44 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
               child: const Text('Hủy'),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  // Xử lý thông tin nhập vào
-                  print('da nhan: ${Category}');
-                  print('da nhan: ${DayStart}');
-                  print('da nhan: ${DayEnd}');
-                  print('da nhan: ${EventName}');
-                  print('da nhan: ${Image}');
-                  print('da nhan: ${ImageCountry}');
-                  print('da nhan: ${ImageDetail}');
-                  print('da nhan: ${Location}');
-                  print('da nhan: ${MonthEnd}');
-                  print('da nhan: ${MonthStart}');
-                  print('da nhan: ${Status}');
+                  // Tạo một ID tự động (có thể sử dụng push() để tự động tạo ID)
+                  DatabaseReference newEntryRef = database.push();
+
+                  // Tạo đối tượng dữ liệu
+                  Map<String, dynamic> data = {
+                    'Category': Category,
+                    'DayStart': DayStart,
+                    'DayEnd': DayEnd,
+                    'MonthStart': MonthStart,
+                    'MonthEnd': MonthEnd,
+                    'Status': Status,
+                    'EventName': EventName,
+                    'Location': Location,
+                    'Image': Image,
+                    'ImageCountry': ImageCountry,
+                    'ImageDetail': ImageDetail,
+                  };
+
+                  // Gửi dữ liệu lên Firebase
+                  await newEntryRef.set(data).then((_) async {
+                    print(
+                        'Dữ liệu đã được gửi thành công với ID: ${newEntryRef.key}');
+
+                    // Lấy danh sách cập nhật từ Firebase
+                    var updatedData = await FirebaseDatabase.instance
+                        .ref('Calendar/GrandsPrix/AddCalendar')
+                        .get()
+                        .then((snapshot) => snapshot.children
+                            .map((e) => e.value as Map<String, dynamic>)
+                            .toList());
+
+                    // Cập nhật lại controller.addCalendar
+                    controller.addCalendar.value = updatedData;
+                  }).catchError((error) {
+                    print('Lỗi khi gửi dữ liệu: $error');
+                  });
 
                   Navigator.of(context).pop(); // Đóng dialog
                 }
@@ -475,5 +522,20 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
         );
       },
     );
+  }
+
+  Future<void> _refreshData() async {
+    await Future.wait([
+      controller.fetchGrandsPrixMarch(),
+      controller.fetchGrandsPrixApril(),
+      controller.fetchGrandsPrixMay(),
+      controller.fetchGrandsPrixJune(),
+      controller.fetchGrandsPrixJuly(),
+      controller.fetchGrandsPrixAugust(),
+      controller.fetchGrandsPrixSeptember(),
+      controller.fetchGrandsPrixOctober(),
+      controller.fetchGrandsPrixNovember(),
+      controller.fetchAddCalendar(),
+    ]);
   }
 }

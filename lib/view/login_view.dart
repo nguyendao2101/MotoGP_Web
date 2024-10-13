@@ -76,6 +76,8 @@ class _LoginViewState extends State<LoginView> {
                                           ?.validate() ==
                                       true) {
                                     controller.onlogin();
+                                    controller.emailController.clear();
+                                    controller.passwordController.clear();
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

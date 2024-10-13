@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../view_model/login_view_model.dart';
 import '../widgets/common/color_extentionn.dart';
 import '../widgets/common/image_extention.dart';
 
@@ -13,6 +15,8 @@ class InfoUserView extends StatefulWidget {
 }
 
 class _InfoUserViewState extends State<InfoUserView> {
+  final controller = Get.put(LoginViewModel());
+
   late DatabaseReference _database;
   late String _userId;
   Map<String, dynamic> _userData = {};
@@ -81,8 +85,26 @@ class _InfoUserViewState extends State<InfoUserView> {
                       _buildProfileImage(),
                       const SizedBox(height: 150),
                       _buildUserInfoCard(),
-                      const SizedBox(height: 500),
+                      const SizedBox(height: 100),
                       // _buildFavouriteMessagesCard(),
+                      ElevatedButton(
+                        onPressed: () {
+                          controller.onLogout();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 20,
+                          ),
+                        ),
+                        child: const Text('Sign Out'),
+                      ),
+                      const SizedBox(height: 300),
                     ],
                   ),
                 ),

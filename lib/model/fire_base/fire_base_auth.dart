@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:moto_gp_web/admin/view/home_screen_view.dart';
 import 'package:moto_gp_web/view/home_screen_view.dart';
+import 'package:moto_gp_web/view/login_view.dart';
 
 class FirAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -15,6 +16,7 @@ class FirAuth {
     String hoTen,
     String addRess,
     String sex,
+    String role, // Nhận tham số role
     Function onSuccess,
     Function(String) onRegisterError,
   ) {
@@ -22,7 +24,7 @@ class FirAuth {
         .createUserWithEmailAndPassword(email: email, password: passWord)
         .then((user) {
       if (user.user != null) {
-        _createUser(user.user!.uid, hoTen, addRess, sex, onSuccess);
+        _createUser(user.user!.uid, hoTen, addRess, sex, role, onSuccess);
       }
     }).catchError((err) {
       if (err is FirebaseAuthException) {
@@ -63,8 +65,24 @@ class FirAuth {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: passWord);
+
       if (credential.user != null) {
-        Get.offAll(() => const HomeScreen());
+        final userSnapshot = await FirebaseDatabase.instance
+            .ref('users/${credential.user!.uid}')
+            .once();
+
+        final userData = userSnapshot.snapshot.value as Map<dynamic, dynamic>?;
+
+        if (userData != null) {
+          final userRole = userData['role'];
+          if (userRole == 'admin') {
+            Get.offAll(() => const HomeScreenAmin());
+          } else {
+            Get.offAll(() => const HomeScreen());
+          }
+        } else {
+          print('Không tìm thấy dữ liệu người dùng.');
+        }
       }
     } on FirebaseAuthException catch (err) {
       if (err.code == 'user-not-found') {
@@ -109,15 +127,19 @@ class FirAuth {
   }
 
   void _createUser(String userId, String hoTen, String addRess, String sex,
-      Function onSuccess) {
-    var user = {'HoTen': hoTen, 'AddRess': addRess, 'Sex': sex};
-    var ref = FirebaseDatabase.instance.ref().child('users'); // Updated here
+      String role, Function onSuccess) {
+    // Sử dụng role từ tham số truyền vào
+    var user = {
+      'HoTen': hoTen,
+      'AddRess': addRess,
+      'Sex': sex,
+      'role': role, // Sử dụng role truyền vào
+    };
+    var ref = FirebaseDatabase.instance.ref().child('users');
     ref.child(userId).set(user).then((_) {
       onSuccess();
     }).catchError((err) {
-      // ignore: avoid_print
       print("Error: $err");
-      // Handle error
     });
   }
 
@@ -140,6 +162,7 @@ class FirAuth {
   }
 
   Future<void> signOut() async {
-    return _firebaseAuth.signOut();
+    await _firebaseAuth.signOut();
+    Get.to(() => const LoginView());
   }
 }

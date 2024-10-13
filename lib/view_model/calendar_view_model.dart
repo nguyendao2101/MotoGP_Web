@@ -33,6 +33,9 @@ class CalendarViewModel extends GetxController {
   RxList<Map<String, dynamic>> grandsPrixNovember =
       <Map<String, dynamic>>[].obs;
 
+  // add calendar
+  RxList<Map<String, dynamic>> addCalendar = <Map<String, dynamic>>[].obs;
+
   //
   Map<String, Map<String, dynamic>> calendarMap = {};
 
@@ -62,16 +65,54 @@ class CalendarViewModel extends GetxController {
     fetchGrandsPrixSeptember();
     fetchGrandsPrixOctober();
     fetchGrandsPrixNovember();
+    //add calendar
+    fetchAddCalendar();
+  }
+
+  // add calendar
+  Future<void> fetchAddCalendar() async {
+    DatabaseReference officialRidersRef =
+        _databaseReference.child('Calendar/GrandsPrix/AddCalendar');
+
+    officialRidersRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      print('kieu du lieu cua addcalendar: ${snapshot.value.runtimeType}');
+
+      if (snapshot.value != null) {
+        // print('day la tu legends: ${snapshot.value}');
+        Map<String, dynamic> ridersMapData =
+            Map<String, dynamic>.from(snapshot.value as Map);
+        addCalendar.clear();
+        ridersMapData.forEach((key, value) {
+          Map<String, dynamic> riderData = {
+            'id': key,
+            'Category': value['Category'] ?? 'N/A',
+            'DayEnd': value['DayEnd'] ?? 'N/A',
+            'DayStart': value['DayStart'] ?? 'N/A',
+            'EventName': value['EventName'] ?? 'N/A',
+            'Image': value['Image'] ?? 'N/A',
+            'ImageCountry': value['ImageCountry'] ?? 'N/A',
+            'ImageDetail': value['ImageDetail'] ?? 'N/A',
+            'Location': value['Location'] ?? 'N/A',
+            'MonthEnd': value['MonthEnd'] ?? 'N/A',
+            'MonthStart': value['MonthStart'] ?? 'N/A',
+            'Status': value['Status'] ?? 'N/A',
+          };
+          addCalendar.add(riderData);
+        });
+      }
+    });
   }
 
   //all events/february
   Future<void> fetchAllEventsFebruary() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/February');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/February');
 
     try {
       DatabaseEvent event = await calendarRef.once();
       DataSnapshot snapshot = event.snapshot;
+      print('tu calendar: ${snapshot.value}');
 
       // Kiểm tra nếu snapshot.value là List<Object?>
       if (snapshot.value != null && snapshot.value is List<Object?>) {
@@ -112,11 +153,10 @@ class CalendarViewModel extends GetxController {
     }
   }
 
-
 //all events/march
   Future<void> fetchAllEventsMarch() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/March');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/March');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -163,8 +203,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/april
   Future<void> fetchAllEventsApril() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/April');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/April');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -211,8 +251,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/may
   Future<void> fetchAllEventsMay() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/May');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/May');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -259,8 +299,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/june
   Future<void> fetchAllEventsJune() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/June');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/June');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -307,8 +347,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/july
   Future<void> fetchAllEventsJuly() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/July');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/July');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -355,8 +395,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/august
   Future<void> fetchAllEventsAugust() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/August');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/August');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -403,8 +443,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/september
   Future<void> fetchAllEventsSeptember() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/September');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/September');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -451,8 +491,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/october
   Future<void> fetchAllEventsOctober() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/October');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/October');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -499,8 +539,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/november
   Future<void> fetchAllEventsNovember() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/November');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/November');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -547,8 +587,8 @@ class CalendarViewModel extends GetxController {
 
   //all events/novemberTest
   Future<void> fetchAllEventsNovemberTest() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/AllEvents/NovemberTest');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/AllEvents/NovemberTest');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -595,8 +635,8 @@ class CalendarViewModel extends GetxController {
 
   //grands prix/march
   Future<void> fetchGrandsPrixMarch() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/GrandsPrix/March');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/March');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -643,8 +683,8 @@ class CalendarViewModel extends GetxController {
 
   //grands prix/april
   Future<void> fetchGrandsPrixApril() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/GrandsPrix/April');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/April');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -691,8 +731,8 @@ class CalendarViewModel extends GetxController {
 
   //grands prix/may
   Future<void> fetchGrandsPrixMay() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/GrandsPrix/May');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/May');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -739,8 +779,8 @@ class CalendarViewModel extends GetxController {
 
   //grands prix/june
   Future<void> fetchGrandsPrixJune() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/GrandsPrix/June');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/June');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -787,8 +827,8 @@ class CalendarViewModel extends GetxController {
 
   //grands prix/july
   Future<void> fetchGrandsPrixJuly() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/GrandsPrix/July');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/July');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -835,8 +875,8 @@ class CalendarViewModel extends GetxController {
 
   //grands prix/august
   Future<void> fetchGrandsPrixAugust() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/GrandsPrix/August');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/August');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -883,8 +923,8 @@ class CalendarViewModel extends GetxController {
 
   //grands prix/september
   Future<void> fetchGrandsPrixSeptember() async {
-    DatabaseReference calendarRef = _databaseReference.child(
-        'Calendar/GrandsPrix/September');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/September');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -928,9 +968,11 @@ class CalendarViewModel extends GetxController {
       print('Lỗi khi lấy sự kiện: $e');
     }
   }
+
 //grands prix/october
   Future<void> fetchGrandsPrixOctober() async {
-    DatabaseReference calendarRef = _databaseReference.child('Calendar/GrandsPrix/October');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/October');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -967,7 +1009,6 @@ class CalendarViewModel extends GetxController {
             grandsPrixOctober.add(calendarData); // Thêm vào danh sách
           }
         }
-
       } else {
         print('Dữ liệu không phải là danh sách');
       }
@@ -975,9 +1016,11 @@ class CalendarViewModel extends GetxController {
       print('Lỗi khi lấy sự kiện: $e');
     }
   }
+
 //grands prix/november
   Future<void> fetchGrandsPrixNovember() async {
-    DatabaseReference calendarRef = _databaseReference.child('Calendar/GrandsPrix/November');
+    DatabaseReference calendarRef =
+        _databaseReference.child('Calendar/GrandsPrix/November');
 
     try {
       DatabaseEvent event = await calendarRef.once();
@@ -1014,7 +1057,6 @@ class CalendarViewModel extends GetxController {
             grandsPrixNovember.add(calendarData); // Thêm vào danh sách
           }
         }
-
       } else {
         print('Dữ liệu không phải là danh sách');
       }

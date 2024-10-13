@@ -66,4 +66,9 @@ class LoginViewModel extends GetxController {
     FirAuth.signInWithEmailAndPassword(
         emailController.text, passwordController.text);
   }
+
+  void onLogout() {
+    FirAuth firAuth = FirAuth(); // Tạo một thể hiện của FirAuth
+    firAuth.signOut(); // Gọi phương thức signOut từ thể hiện
+  }
 }
