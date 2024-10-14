@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, unused_local_variable, no_leading_underscores_for_local_identifiers
+// ignore_for_file: non_constant_identifier_names, unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print, use_build_context_synchronously
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';

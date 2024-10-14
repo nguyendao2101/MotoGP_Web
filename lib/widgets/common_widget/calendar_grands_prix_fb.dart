@@ -71,6 +71,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                 ),
               ),
               Obx(() {
+
                 if (controller.grandsPrixMarch.isEmpty) {
                   return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()),
