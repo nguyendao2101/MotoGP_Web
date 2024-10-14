@@ -94,7 +94,7 @@ class RidersAndTeamsTeamsDetail extends StatelessWidget {
                                       color: Colors.grey, fontSize: 20),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: team['Team'],
+                                      text: team['BikeManufacturer'],
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 28,

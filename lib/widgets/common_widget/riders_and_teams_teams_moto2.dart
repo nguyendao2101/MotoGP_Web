@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:moto_gp_web/widgets/common_widget/grid_view_teams.dart';
 
 import '../../view_model/riders_and_teams_teams_moto2_view_model.dart';
+import '../common/image_extention.dart';
 
 class RidersAndTeamsTeamsMoto2 extends StatefulWidget {
   const RidersAndTeamsTeamsMoto2({super.key});
@@ -30,7 +31,18 @@ class _RidersAndTeamsTeamsMoto2State extends State<RidersAndTeamsTeamsMoto2> {
           child: CustomScrollView(
             slivers: [
               // Sliver header
-
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _grandsPrixMonth('Teams'),
+                    ],
+                  ),
+                ),
+              ),
               Obx(() {
                 if (controllerRiders.teamsMoto2.isEmpty) {
                   return const SliverFillRemaining(
@@ -47,6 +59,20 @@ class _RidersAndTeamsTeamsMoto2State extends State<RidersAndTeamsTeamsMoto2> {
           ),
         ),
       ),
+    );
+  }
+
+  Row _grandsPrixMonth(String text) {
+    return Row(
+      children: [
+        Image.asset(ImageAssest.redFlag, height: 44),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }
