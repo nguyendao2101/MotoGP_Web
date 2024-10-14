@@ -104,37 +104,37 @@ class _RidersAndTeamsRidersMotoeState extends State<RidersAndTeamsRidersMotoe> {
   void _showInputDialog(
       BuildContext context, MotoeViewModel controller, String path) {
     final _formKey = GlobalKey<FormState>();
-    String Country = ''; //
-    String Id = ''; //
-    String ImageCountry = ''; //
-    String ImageRacer = ''; //
-    int Moto2Podiums = 0;
-    int Moto2Poles = 0;
-    int Moto2Races = 0;
-    int Moto2Victories = 0;
-    int Moto2WorldChampionships = 0;
-    int Moto3Podiums = 0;
-    int Moto3Poles = 0;
-    int Moto3Races = 0;
-    int Moto3Victories = 0;
-    int Moto3WorldChampionships = 0;
-    int MotoGPPodiums = 0;
-    int MotoGPPoles = 0;
-    int MotoGPRaces = 0;
-    int MotoGPVictories = 0;
-    int MotoGPWorldChampionships = 0;
-    String Name = ''; //
-    int Points = 0;
-    int Position = 0;
-    String Team = ''; //
-    String TeamMateImage = ''; //
-    String TeamMateName = ''; //
-    int TotalPodiums = 0;
-    int TotalPoles = 0;
-    int TotalRaces = 0;
-    int TotalVictories = 0;
-    int TotalWorldChampionships = 0;
-    int Victories = 0;
+    String Country = '';
+    String Id = '';
+    String ImageCountry = '';
+    String ImageRacer = '';
+    String Moto2Podiums = '';
+    String Moto2Poles = '';
+    String Moto2Races = '';
+    String Moto2Victories = '';
+    String Moto2WorldChampionships = '';
+    String Moto3Podiums = '';
+    String Moto3Poles = '';
+    String Moto3Races = '';
+    String Moto3Victories = '';
+    String Moto3WorldChampionships = '';
+    String MotoGPPodiums = '';
+    String MotoGPPoles = '';
+    String MotoGPRaces = '';
+    String MotoGPVictories = '';
+    String MotoGPWorldChampionships = '';
+    String Name = '';
+    String Points = '';
+    String Position = '';
+    String Team = '';
+    String TeamMateImage = '';
+    String TeamMateName = '';
+    String TotalPodiums = '';
+    String TotalPoles = '';
+    String TotalRaces = '';
+    String TotalVictories = '';
+    String TotalWorldChampionships = '';
+    String Victories = '';
 
     // Khởi tạo database reference
     final DatabaseReference database = FirebaseDatabase.instance.ref(path);
@@ -200,255 +200,194 @@ class _RidersAndTeamsRidersMotoeState extends State<RidersAndTeamsRidersMotoe> {
                     },
                   ),
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'Moto2Podiums'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto2Podiums';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto2Podiums = int.parse(value);
+                      Moto2Podiums = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Moto2Poles'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Add Moto2Poles';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      Moto2Poles = value;
+                    },
+                  ),
+                  TextFormField(
                     decoration: const InputDecoration(labelText: 'Moto2Races'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto2Races';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto2Races = int.parse(value);
+                      Moto2Races = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration:
-                        const InputDecoration(labelText: 'Moto2Podiums'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Add Moto2Podiums';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      Moto2Podiums = int.parse(value);
-                    },
-                  ),
-
-                  TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'Moto2Victories'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto2Victories';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto2Victories = int.parse(value);
+                      Moto2Victories = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         labelText: 'Moto2WorldChampionships'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto2WorldChampionships';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto2WorldChampionships = int.parse(value);
+                      Moto2WorldChampionships = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'Moto3Podiums'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto3Podiums';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto3Podiums = int.parse(value);
+                      Moto3Podiums = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Moto3Poles'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto3Poles';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto3Poles = int.parse(value);
+                      Moto3Poles = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Moto3Races'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto3Races';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto3Races = int.parse(value);
+                      Moto3Races = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'Moto3Victories'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto3Victories';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto3Victories = int.parse(value);
+                      Moto3Victories = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         labelText: 'Moto3WorldChampionships'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Moto3WorldChampionships';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Moto3WorldChampionships = int.parse(value);
+                      Moto3WorldChampionships = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'MotoGPPodiums'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add MotoGPPodiums';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      MotoGPPodiums = int.parse(value);
+                      MotoGPPodiums = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'MotoGPPoles'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add MotoGPPoles';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      MotoGPPoles = int.parse(value);
+                      MotoGPPoles = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'MotoGPRaces'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add MotoGPRaces';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      MotoGPRaces = int.parse(value);
+                      MotoGPRaces = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'MotoGPVictories'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add MotoGPVictories';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      MotoGPVictories = int.parse(value);
+                      MotoGPVictories = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         labelText: 'MotoGPWorldChampionships'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add MotoGPWorldChampionships';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      MotoGPWorldChampionships = int.parse(value);
+                      MotoGPWorldChampionships = value;
                     },
                   ),
-
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Name'),
                     validator: (value) {
@@ -461,39 +400,30 @@ class _RidersAndTeamsRidersMotoeState extends State<RidersAndTeamsRidersMotoe> {
                       Name = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Points'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Points';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Points = int.parse(value);
+                      Points = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Position'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Position';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Position = int.parse(value);
+                      Position = value;
                     },
                   ),
-
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Team'),
                     validator: (value) {
@@ -506,7 +436,6 @@ class _RidersAndTeamsRidersMotoeState extends State<RidersAndTeamsRidersMotoe> {
                       Team = value;
                     },
                   ),
-
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'TeamMateImage'),
@@ -533,105 +462,79 @@ class _RidersAndTeamsRidersMotoeState extends State<RidersAndTeamsRidersMotoe> {
                       TeamMateName = value;
                     },
                   ),
-
-                  ////
-                  ///
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'TotalPodiums'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add TotalPodiums';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      TotalPodiums = int.parse(value);
+                      TotalPodiums = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'TotalPoles'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add TotalPoles';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      TotalPoles = int.parse(value);
+                      TotalPoles = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'TotalRaces'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add TotalRaces';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      TotalRaces = int.parse(value);
+                      TotalRaces = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration(labelText: 'TotalVictories'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add TotalVictories';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      TotalVictories = int.parse(value);
+                      TotalVictories = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         labelText: 'TotalWorldChampionships'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add TotalWorldChampionships';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      TotalWorldChampionships = int.parse(value);
+                      TotalWorldChampionships = value;
                     },
                   ),
-
                   TextFormField(
-                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Victories'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Add Victories';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Enter a valid number';
                       }
                       return null;
                     },
                     onChanged: (value) {
-                      Victories = int.parse(value);
+                      Victories = value;
                     },
                   ),
                 ],

@@ -922,7 +922,7 @@ class SliverGridRiders extends StatelessWidget {
                           'Id': idController.text, //
                           'ImageCountry': imageCountryController.text, //
                           'ImageRacer': imageRacerController.text, //
-                          'Moto2Podiums': moto2PodiumsController.text,
+                          'Moto2Podiums': moto2PodiumsController,
                           'Moto2Poles': moto2PolesController.text,
                           'Moto2Races': moto2RacesController.text,
                           'Moto2Victories': moto2VictoriesController.text,
