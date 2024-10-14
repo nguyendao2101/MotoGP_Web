@@ -1,7 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import '../common/image_extention.dart';
 
 class RidersLegendsDetail extends StatelessWidget {
@@ -61,7 +58,7 @@ class RidersLegendsDetail extends StatelessWidget {
                           child: rider['ImageRacer'] != ''
                               ? Image.network(
                                   rider['ImageRacer'],
-                            fit: BoxFit.contain,
+                                  fit: BoxFit.contain,
                                 )
                               : const Icon(Icons.person,
                                   size: 250, color: Colors.grey),
@@ -338,17 +335,6 @@ class RidersLegendsDetail extends StatelessWidget {
             child: Text(text),
           ),
         ],
-      ),
-    );
-  }
-
-  Padding _verticalDivider() {
-    return const Padding(
-      padding: EdgeInsets.only(top: 4),
-      child: VerticalDivider(
-        width: 1, // Chiều rộng của đường kẻ
-        thickness: 1, // Độ dày của đường kẻ
-        color: Colors.grey, // Màu sắc của đường kẻ
       ),
     );
   }

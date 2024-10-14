@@ -161,7 +161,7 @@ class RidersAndTeamsTeamsDetail extends StatelessWidget {
                                                       height: 80,
                                                       width: 80,
                                                     )
-                                                  : Icon(
+                                                  : const Icon(
                                                       Icons.image_not_supported,
                                                       size: 80,
                                                       color: Colors.grey,
@@ -183,7 +183,7 @@ class RidersAndTeamsTeamsDetail extends StatelessWidget {
                                                                   color: Colors
                                                                       .grey),
                                                         )
-                                                      : Icon(
+                                                      : const Icon(
                                                           Icons.person,
                                                           color: Colors.grey,
                                                           size: 20,
@@ -202,7 +202,7 @@ class RidersAndTeamsTeamsDetail extends StatelessWidget {
                                                                   color: Colors
                                                                       .white),
                                                         )
-                                                      : Icon(
+                                                      : const Icon(
                                                           Icons.error_outline,
                                                           color: Colors.red,
                                                           size: 20,
@@ -277,7 +277,7 @@ class RidersAndTeamsTeamsDetail extends StatelessWidget {
                                                         height: 80,
                                                         width: 80,
                                                       )
-                                                    : Icon(
+                                                    : const Icon(
                                                         Icons
                                                             .image_not_supported,
                                                         size: 80,
@@ -301,7 +301,7 @@ class RidersAndTeamsTeamsDetail extends StatelessWidget {
                                                                     color: Colors
                                                                         .grey),
                                                           )
-                                                        : Icon(
+                                                        : const Icon(
                                                             Icons.person,
                                                             color: Colors.grey,
                                                             size: 20,
@@ -322,7 +322,7 @@ class RidersAndTeamsTeamsDetail extends StatelessWidget {
                                                                 color: Colors
                                                                     .white),
                                                           )
-                                                        : Icon(
+                                                        : const Icon(
                                                             Icons.error_outline,
                                                             color: Colors.red,
                                                             size: 20,

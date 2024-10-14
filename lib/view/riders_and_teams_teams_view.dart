@@ -6,8 +6,6 @@ import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_teams_moto3.d
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_teams_motoe.dart';
 import 'package:moto_gp_web/widgets/common_widget/riders_and_teams_teams_motogp.dart';
 
-import '../widgets/common/image_extention.dart';
-
 class RidersAndTeamsTeamsView extends StatefulWidget {
   const RidersAndTeamsTeamsView({super.key});
 

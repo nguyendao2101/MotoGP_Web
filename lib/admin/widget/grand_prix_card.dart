@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member, prefer_typing_uninitialized_variables, avoid_print, use_build_context_synchronously
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -75,7 +77,7 @@ class GrandPrixCard extends StatelessWidget {
                               const SizedBox(width: 20),
                               const Text(
                                 '-',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 58,
                                     color: Color.fromARGB(255, 102, 94, 94),
                                     fontWeight: FontWeight.bold),

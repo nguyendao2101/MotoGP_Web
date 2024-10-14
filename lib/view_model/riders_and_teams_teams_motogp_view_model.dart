@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
@@ -196,7 +198,7 @@ class RidersAndTeamsTeamsMotogpViewModel extends GetxController {
 
   Future<void> fetchTeamsMotoGP() async {
     DatabaseReference resultsRef =
-    _databaseReference.child('Riders&Team/Teams/MotoGP');
+        _databaseReference.child('Riders&Team/Teams/MotoGP');
 
     resultsRef.once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
@@ -206,7 +208,7 @@ class RidersAndTeamsTeamsMotogpViewModel extends GetxController {
         if (snapshot.value is Map) {
           print('Dữ liệu là Map');
           Map<dynamic, dynamic> resultsMap =
-          Map<dynamic, dynamic>.from(snapshot.value as Map);
+              Map<dynamic, dynamic>.from(snapshot.value as Map);
           teamsMotoGP.clear();
 
           resultsMap.forEach((key, result) {
@@ -214,39 +216,40 @@ class RidersAndTeamsTeamsMotogpViewModel extends GetxController {
               String riderId = result['Id'] ?? 'N/A';
 
               // Fetch rider details from combined ridersMap
-              Map<String, dynamic> riderDetails = ridersMap[riderId] ?? {
-                'Id': riderId,
-                'ImageCountry': 'N/A',
-                'Country': 'N/A',
-                'ImageRacer': '',
-                'Name': 'N/A',
-                'Team': 'N/A',
-                'Position': 'N/A',
-                'Points': 'N/A',
-                'Victories': 'N/A',
-                'TotalPodiums': 'N/A',
-                'TotalPoles': 'N/A',
-                'TotalRaces': 'N/A',
-                'TotalVictories': 'N/A',
-                'TotalWorldChampionships': 'N/A',
-                'MotoGPRaces': 'N/A',
-                'MotoGPPoles': 'N/A',
-                'MotoGPPodiums': 'N/A',
-                'MotoGPVictories': 'N/A',
-                'MotoGPWorldChampionships': 'N/A',
-                'Moto2Races': 'N/A',
-                'Moto2Poles': 'N/A',
-                'Moto2Podiums': 'N/A',
-                'Moto2Victories': 'N/A',
-                'Moto2WorldChampionships': 'N/A',
-                'Moto3Races': 'N/A',
-                'Moto3Poles': 'N/A',
-                'Moto3Podiums': 'N/A',
-                'Moto3Victories': 'N/A',
-                'Moto3WorldChampionships': 'N/A',
-                'TeamMateImage': 'N/A',
-                'TeamMateName': 'N/A',
-              };
+              Map<String, dynamic> riderDetails = ridersMap[riderId] ??
+                  {
+                    'Id': riderId,
+                    'ImageCountry': 'N/A',
+                    'Country': 'N/A',
+                    'ImageRacer': '',
+                    'Name': 'N/A',
+                    'Team': 'N/A',
+                    'Position': 'N/A',
+                    'Points': 'N/A',
+                    'Victories': 'N/A',
+                    'TotalPodiums': 'N/A',
+                    'TotalPoles': 'N/A',
+                    'TotalRaces': 'N/A',
+                    'TotalVictories': 'N/A',
+                    'TotalWorldChampionships': 'N/A',
+                    'MotoGPRaces': 'N/A',
+                    'MotoGPPoles': 'N/A',
+                    'MotoGPPodiums': 'N/A',
+                    'MotoGPVictories': 'N/A',
+                    'MotoGPWorldChampionships': 'N/A',
+                    'Moto2Races': 'N/A',
+                    'Moto2Poles': 'N/A',
+                    'Moto2Podiums': 'N/A',
+                    'Moto2Victories': 'N/A',
+                    'Moto2WorldChampionships': 'N/A',
+                    'Moto3Races': 'N/A',
+                    'Moto3Poles': 'N/A',
+                    'Moto3Podiums': 'N/A',
+                    'Moto3Victories': 'N/A',
+                    'Moto3WorldChampionships': 'N/A',
+                    'TeamMateImage': 'N/A',
+                    'TeamMateName': 'N/A',
+                  };
 
               teamsMotoGP.add({
                 'id': key.toString(),
@@ -268,5 +271,4 @@ class RidersAndTeamsTeamsMotogpViewModel extends GetxController {
       print('Error fetching results: $error');
     });
   }
-
 }

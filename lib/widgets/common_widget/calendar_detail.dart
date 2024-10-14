@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../view/results_and_standings_results_view.dart';
 import '../../view/results_and_standings_standings_view.dart';
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../view_model/calendar_view_model.dart';
@@ -31,6 +30,7 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
               controller.fetchGrandsPrixSeptember(),
               controller.fetchGrandsPrixOctober(),
               controller.fetchGrandsPrixNovember(),
+              controller.fetchAddCalendar(),
             ]);
           },
           child: CustomScrollView(
@@ -42,27 +42,30 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
                       const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
                   child: Column(
                     children: [
+                      _grandsPrixMonth('Calendar Add'),
+                    ],
+                  ),
+                ),
+              ),
+              Obx(() {
+                if (controller.grandsPrixMarch.isEmpty) {
+                  return const SliverFillRemaining(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                } else {
+                  return GrandPrixCard(
+                    controller: controller,
+                    listDS: controller.addCalendar,
+                  );
+                }
+              }),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Column(
+                    children: [
                       _grandsPrixMonth('March'),
-                      // InkWell(
-                      //   onTap: () {
-                      //     _showInputDialog(context);
-                      //   },
-                      //   child: Row(
-                      //     children: [
-                      //       Image.asset(
-                      //         ImageAssest.add,
-                      //         height: 48,
-                      //       ),
-                      //       const Text(
-                      //         'Add Calendar',
-                      //         style: TextStyle(
-                      //             fontSize: 30,
-                      //             color: Colors.black,
-                      //             fontWeight: FontWeight.bold),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
@@ -283,197 +286,4 @@ class _CalendarGrandsPrixFbState extends State<CalendarGrandsPrixFb> {
       ],
     );
   }
-
-  // void _showInputDialog(BuildContext context) {
-  //   final _formKey = GlobalKey<FormState>();
-  //   String Category = '';
-  //   String DayEnd = '';
-  //   String DayStart = '';
-  //   String EventName = '';
-  //   String Image = '';
-  //   String ImageCountry = '';
-  //   String ImageDetail = '';
-  //   String Location = '';
-  //   String MonthEnd = '';
-  //   String MonthStart = '';
-  //   String Status = '';
-
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         title: const Text('Add Information calendar'),
-  //         content: Form(
-  //           key: _formKey,
-  //           child: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'Category'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add Category';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   Category = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'DayStart'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add DayStart';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   DayStart = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'DayEnd'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add DayEnd';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   DayEnd = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'MonthStart'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add MonthStart';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   MonthStart = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'MonthEnd'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add MonthEnd';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   MonthEnd = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'Status'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add Status';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   Status = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'EventName'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add EventName';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   EventName = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'Location'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add Location';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   Location = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'ImageDetail'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add Image';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   Image = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'Image'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add ImageCountry';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   ImageCountry = value;
-  //                 },
-  //               ),
-  //               TextFormField(
-  //                 decoration: const InputDecoration(labelText: 'ImageCountry'),
-  //                 validator: (value) {
-  //                   if (value == null || value.isEmpty) {
-  //                     return 'Add ImageDetail';
-  //                   }
-  //                   return null;
-  //                 },
-  //                 onChanged: (value) {
-  //                   ImageDetail = value;
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop(); // Đóng dialog
-  //             },
-  //             child: const Text('Hủy'),
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               if (_formKey.currentState!.validate()) {
-  //                 // Xử lý thông tin nhập vào
-  //                 print('da nhan: ${Category}');
-  //                 print('da nhan: ${DayStart}');
-  //                 print('da nhan: ${DayEnd}');
-  //                 print('da nhan: ${EventName}');
-  //                 print('da nhan: ${Image}');
-  //                 print('da nhan: ${ImageCountry}');
-  //                 print('da nhan: ${ImageDetail}');
-  //                 print('da nhan: ${Location}');
-  //                 print('da nhan: ${MonthEnd}');
-  //                 print('da nhan: ${MonthStart}');
-  //                 print('da nhan: ${Status}');
-
-  //                 Navigator.of(context).pop(); // Đóng dialog
-  //               }
-  //             },
-  //             child: const Text('Gửi'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 }

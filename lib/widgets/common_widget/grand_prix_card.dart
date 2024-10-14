@@ -1,8 +1,8 @@
+// ignore_for_file: invalid_use_of_protected_member, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'calendar_detail.dart';
-import 'test2.dart';
 
 class GrandPrixCard extends StatelessWidget {
   final controller;
@@ -76,7 +76,7 @@ class GrandPrixCard extends StatelessWidget {
                               const SizedBox(width: 20),
                               const Text(
                                 '-',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 58,
                                     color: Color.fromARGB(255, 102, 94, 94),
                                     fontWeight: FontWeight.bold),

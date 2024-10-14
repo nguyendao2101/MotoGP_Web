@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +78,7 @@ class FirAuth {
         if (userData != null) {
           final userRole = userData['role'];
           if (userRole == 'admin') {
-            Get.offAll(() => const HomeScreenAmin());
+            Get.offAll(() => const HomeScreenAdmin());
           } else {
             Get.offAll(() => const HomeScreen());
           }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../view_model/riders_and_teams_teams_motogp_view_model.dart';
 import 'grid_view_teams.dart';
-import 'results_and_standings_stadings_list_view.dart';
 
 class RidersAndTeamsTeamsMotoGP extends StatefulWidget {
   const RidersAndTeamsTeamsMotoGP({super.key});

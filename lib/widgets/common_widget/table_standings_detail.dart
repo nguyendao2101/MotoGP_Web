@@ -1,10 +1,11 @@
+// ignore_for_file: avoid_web_libraries_in_flutter, prefer_typing_uninitialized_variables, invalid_use_of_protected_member, unused_local_variable, deprecated_member_use, use_build_context_synchronously, avoid_print
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:pdf/pdf.dart';
 import 'dart:html' as html; // Chỉ dùng cho nền tảng web
 
 class TableStandingsDetail extends StatelessWidget {
@@ -656,7 +657,7 @@ class TableStandingsDetail extends StatelessWidget {
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 5, // Giảm kích thước chữ của tiêu đề
                 ),
-                cellStyle: pw.TextStyle(
+                cellStyle: const pw.TextStyle(
                   fontSize: 3, // Giảm kích thước chữ của các ô dữ liệu
                 ),
               ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_stadings_moto2.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_stadings_moto3.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_stadings_motoe.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_stadings_motogp.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_stadings_moto2.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_stadings_moto3.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_stadings_motoe.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_stadings_motogp.dart';
 
 class ResultsAndStandingsStandingsView extends StatefulWidget {
   const ResultsAndStandingsStandingsView({super.key});

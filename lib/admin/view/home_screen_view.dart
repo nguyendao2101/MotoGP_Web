@@ -19,14 +19,14 @@ import 'package:moto_gp_web/widgets/common_widget/icon_text_row.dart';
 import '../../view/info_user_view.dart';
 import 'results_and_standings_standings_view.dart';
 
-class HomeScreenAmin extends StatefulWidget {
-  const HomeScreenAmin({super.key});
+class HomeScreenAdmin extends StatefulWidget {
+  const HomeScreenAdmin({super.key});
 
   @override
-  State<HomeScreenAmin> createState() => _HomeScreenState();
+  State<HomeScreenAdmin> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreenAmin>
+class _HomeScreenState extends State<HomeScreenAdmin>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
 

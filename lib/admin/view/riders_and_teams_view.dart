@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moto_gp_web/view/riders_and_teams_legends_view.dart';
-import 'package:moto_gp_web/view/riders_and_teams_riders_view.dart';
-import 'package:moto_gp_web/view/riders_and_teams_teams_view.dart';
+import 'package:moto_gp_web/admin/view/riders_and_teams_legends_view.dart';
+import 'package:moto_gp_web/admin/view/riders_and_teams_riders_view.dart';
+import 'package:moto_gp_web/admin/view/riders_and_teams_teams_view.dart';
+
 import 'package:moto_gp_web/view_model/riders_and_teams_view_models.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
 

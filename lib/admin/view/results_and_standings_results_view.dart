@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_results_moto2_rac.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_results_moto3_rac.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_results_motoe_rac.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_results_motogp_rac.dart';
+import 'package:moto_gp_web/admin/widget/results_and_standings_results_motogp_wup.dart';
 import 'package:moto_gp_web/widgets/common/image_extention.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_results_moto2_rac.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_results_moto3_rac.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_results_motoe_rac.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_results_motogp_rac.dart';
-import 'package:moto_gp_web/widgets/common_widget/results_and_standings_results_motogp_wup.dart';
 
 class ResultsAndStandingsResultsView extends StatefulWidget {
   const ResultsAndStandingsResultsView({super.key});

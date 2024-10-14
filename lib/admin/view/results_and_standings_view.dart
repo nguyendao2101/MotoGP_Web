@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moto_gp_web/view/results_and_standings_records_view.dart';
-import 'package:moto_gp_web/view/results_and_standings_results_view.dart';
-import 'package:moto_gp_web/view/results_and_standings_standings_view.dart';
+import 'package:moto_gp_web/admin/view/results_and_standings_records_view.dart';
+import 'package:moto_gp_web/admin/view/results_and_standings_results_view.dart';
+import 'package:moto_gp_web/admin/view/results_and_standings_standings_view.dart';
 
 class ResultsAndStandingsView extends StatefulWidget {
   const ResultsAndStandingsView({super.key});
