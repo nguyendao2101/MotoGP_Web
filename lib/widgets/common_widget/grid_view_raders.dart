@@ -6,7 +6,8 @@ import 'package:moto_gp_web/widgets/common_widget/rider_detail.dart';
 class SliverGridRiders extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final controller;
-  final List<dynamic> listDS; // Truyền thêm danh sách ridersListMotoGP
+  final RxList<Map<String, dynamic>>
+      listDS; // Truyền thêm danh sách ridersListMotoGP
 
   const SliverGridRiders(
       {super.key, required this.controller, required this.listDS});

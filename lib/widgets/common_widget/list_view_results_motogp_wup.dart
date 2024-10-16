@@ -59,7 +59,7 @@ class SliverListResultsMotoGPWUP extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '#${result['id']}',
+                                '#${index + 1}',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 32),
                               ),

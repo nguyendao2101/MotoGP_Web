@@ -1,33 +1,76 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, use_build_context_synchronously
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'package:moto_gp_web/view_model/riders_and_teams_view_models.dart';
 
+import '../../widgets/common/image_extention.dart';
 import 'list_view_results_motogp_wup.dart';
 
-class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
+class ResultsAndStandingsResultsMotogpWup extends StatefulWidget {
   const ResultsAndStandingsResultsMotogpWup({super.key});
 
   @override
+  State<ResultsAndStandingsResultsMotogpWup> createState() =>
+      _ResultsAndStandingsResultsMotogpWupState();
+}
+
+class _ResultsAndStandingsResultsMotogpWupState
+    extends State<ResultsAndStandingsResultsMotogpWup> {
+  final controllerRiders = Get.put(RidersAndTeamsViewModels());
+  @override
   Widget build(BuildContext context) {
-    final controllerRiders = Get.put(RidersAndTeamsViewModels());
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () async {
-            await Future.wait([
-              controllerRiders.fetchRidersMotoGP(),
-              controllerRiders.fetchRidersMotoGPSubstitute(),
-              controllerRiders.fetchRidersMotoGPWildCardsAndTestRiders(),
-              controllerRiders.fetchResultMotoGPWUP(),
-            ]);
-          },
+          onRefresh: _refreshData,
           child: CustomScrollView(
             slivers: [
               // Sliver header
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _grandsPrixMonth('MotoGP WUP'),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              _showInputDialog(context, controllerRiders,
+                                  'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/WUPADD');
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: Image.asset(
+                                ImageAssest.add,
+                                height: 40,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.refresh,
+                              size: 30,
+                            ),
+                            onPressed: () async {
+                              await _refreshData(); // Gọi phương thức refresh dữ liệu
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
@@ -44,17 +87,72 @@ class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
                     child: Center(child: CircularProgressIndicator()),
                   );
                 } else {
-                  print('hello');
                   return SliverListResultsMotoGPWUP(
                     controller: controllerRiders,
                     listDS: controllerRiders.resultsMotoGPWUP,
                   );
-                  // return Center(
-                  //   child: Text(
-                  //     'hello',
-                  //     style: TextStyle(fontSize: 30, color: Colors.black),
-                  //   ),
-                  // );
+                }
+              }),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _grandsPrixMonth('MotoGP WUP Add'),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              _showInputDialog(context, controllerRiders,
+                                  'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/WUPADD');
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: Image.asset(
+                                ImageAssest.add,
+                                height: 40,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.refresh,
+                              size: 30,
+                            ),
+                            onPressed: () async {
+                              await _refreshData(); // Gọi phương thức refresh dữ liệu
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                  child: Column(
+                    children: [
+                      _textInfomation(),
+                    ],
+                  ),
+                ),
+              ),
+              Obx(() {
+                if (controllerRiders.resultsMotoGPWUPAdd.isEmpty) {
+                  return const SliverFillRemaining(
+                      child: Center(child: Text('No data added yet')));
+                } else {
+                  return SliverListResultsMotoGPWUP(
+                    controller: controllerRiders,
+                    listDS: controllerRiders.resultsMotoGPWUPAdd,
+                  );
                 }
               }),
             ],
@@ -123,5 +221,140 @@ class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
       text,
       style: const TextStyle(fontSize: 20, color: Colors.grey),
     );
+  }
+
+  Row _grandsPrixMonth(String text) {
+    return Row(
+      children: [
+        Image.asset(ImageAssest.redFlag, height: 44),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
+  void _showInputDialog(
+      BuildContext context, RidersAndTeamsViewModels controller, String path) {
+    final _formKey = GlobalKey<FormState>();
+    String Id = '';
+    String Gap = '';
+    String Time = '';
+
+    // Khởi tạo database reference
+    final DatabaseReference database = FirebaseDatabase.instance.ref(path);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Add Information Rider'),
+          content: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Id'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Add Id';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      Id = value;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Gap'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Add Gap';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      Gap = value;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Time'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Add Time';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      Time = value;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Đóng dialog
+              },
+              child: const Text('Hủy'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  // Tạo một ID tự động (có thể sử dụng push() để tự động tạo ID)
+                  DatabaseReference newEntryRef = database.push();
+
+                  // Tạo đối tượng dữ liệu
+                  Map<String, dynamic> data = {
+                    'Gap': Gap,
+                    'Id': Id,
+                    'Time': Time,
+                  };
+
+                  // Gửi dữ liệu lên Firebase
+                  await newEntryRef.set(data).then((_) async {
+                    print(
+                        'Dữ liệu đã được gửi thành công với ID: ${newEntryRef.key}');
+
+                    // Lấy danh sách cập nhật từ Firebase
+                    var updatedData = await FirebaseDatabase.instance
+                        .ref(path)
+                        .get()
+                        .then((snapshot) => snapshot.children
+                            .map((e) => e.value as Map<String, dynamic>)
+                            .toList());
+
+                    // Cập nhật lại controller.addCalendar
+                    controller.resultsMotoGPRAC.value = updatedData;
+                  }).catchError((error) {
+                    print('Lỗi khi gửi dữ liệu: $error');
+                  });
+
+                  Navigator.of(context).pop(); // Đóng dialog
+                }
+              },
+              child: const Text('Gửi'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _refreshData() async {
+    await Future.wait([
+      controllerRiders.fetchRidersMotoGP(),
+      controllerRiders.fetchRidersMotoGPSubstitute(),
+      controllerRiders.fetchRidersMotoGPWildCardsAndTestRiders(),
+      controllerRiders.fetchResultMotoGPWUP(),
+      controllerRiders.fetchRidersresultMotoGPWUPAdd(),
+    ]);
   }
 }

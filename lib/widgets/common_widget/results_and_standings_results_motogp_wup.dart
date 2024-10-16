@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:moto_gp_web/view_model/riders_and_teams_view_models.dart';
 
+import '../common/image_extention.dart';
 import 'list_view_results_motogp_wup.dart';
 
 class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
@@ -23,11 +24,24 @@ class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
               controllerRiders.fetchRidersMotoGPSubstitute(),
               controllerRiders.fetchRidersMotoGPWildCardsAndTestRiders(),
               controllerRiders.fetchResultMotoGPWUP(),
+              controllerRiders.fetchRidersresultMotoGPWUPAdd(),
             ]);
           },
           child: CustomScrollView(
             slivers: [
               // Sliver header
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _grandsPrixMonth('MotoGP WUP'),
+                    ],
+                  ),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
@@ -49,12 +63,40 @@ class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
                     controller: controllerRiders,
                     listDS: controllerRiders.resultsMotoGPWUP,
                   );
-                  // return Center(
-                  //   child: Text(
-                  //     'hello',
-                  //     style: TextStyle(fontSize: 30, color: Colors.black),
-                  //   ),
-                  // );
+                }
+              }),
+
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _grandsPrixMonth('MotoGP WUP Add'),
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                  child: Column(
+                    children: [
+                      _textInfomation(),
+                    ],
+                  ),
+                ),
+              ),
+              Obx(() {
+                if (controllerRiders.resultsMotoGPWUPAdd.isEmpty) {
+                  return const SliverFillRemaining(
+                      child: Center(child: Text('No data added yet')));
+                } else {
+                  return SliverListResultsMotoGPWUP(
+                    controller: controllerRiders,
+                    listDS: controllerRiders.resultsMotoGPWUPAdd,
+                  );
                 }
               }),
             ],
@@ -122,6 +164,20 @@ class ResultsAndStandingsResultsMotogpWup extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(fontSize: 20, color: Colors.grey),
+    );
+  }
+
+  Row _grandsPrixMonth(String text) {
+    return Row(
+      children: [
+        Image.asset(ImageAssest.redFlag, height: 44),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

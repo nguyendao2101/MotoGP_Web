@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen>
             padding: EdgeInsets.zero,
             children: [
               SizedBox(
-                height: 180,
+                height: 200,
                 child: DrawerHeader(
                   decoration:
                       BoxDecoration(color: ChatColor.gray6.withOpacity(0.03)),

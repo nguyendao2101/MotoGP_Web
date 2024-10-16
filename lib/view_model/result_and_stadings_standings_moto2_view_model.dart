@@ -11,6 +11,7 @@ class ResultAndStadingsStandingsMoto2ViewModel extends GetxController {
   RxList<Map<String, dynamic>> ridersListMotoGPWildCardsAndTestRiders =
       <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> standingsMoto2 = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> standingsMoto2Add = <Map<String, dynamic>>[].obs;
 
 // Temporary storage for rider details
   Map<String, Map<String, dynamic>> ridersMap = {};
@@ -21,6 +22,7 @@ class ResultAndStadingsStandingsMoto2ViewModel extends GetxController {
     fetchRidersMoto2Substitute();
     fetchRidersMoto2WildCardsAndTestRiders();
     fetchStandingsMoto2();
+    fetchRidersStandingsMoto2Add();
     super.onInit();
   }
 
@@ -264,6 +266,77 @@ class ResultAndStadingsStandingsMoto2ViewModel extends GetxController {
               });
             }
           }
+        } else {
+          print('Unexpected data format: ${snapshot.value.runtimeType}');
+        }
+      }
+    }).catchError((error) {
+      print('Error fetching results: $error');
+    });
+  }
+
+  Future<void> fetchRidersStandingsMoto2Add() async {
+    DatabaseReference resultsRef = _databaseReference
+        .child('Results&Standings/Standings/2024/RidersChampionship/Moto2ADD');
+
+    resultsRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        print('Data received: ${snapshot.value}');
+        if (snapshot.value is Map) {
+          Map<String, dynamic> resultsMap =
+              Map<String, dynamic>.from(snapshot.value as Map);
+          standingsMoto2Add.clear();
+
+          resultsMap.forEach((key, value) {
+            var result = value;
+            if (result is Map) {
+              String riderId = result['Id'] ?? 'N/A';
+
+              // Fetch rider details from combined ridersMap
+              Map<String, dynamic> riderDetails = ridersMap[riderId] ??
+                  {
+                    'Id': riderId,
+                    'ImageCountry': 'N/A',
+                    'Country': 'N/A',
+                    'ImageRacer': '',
+                    'Name': 'N/A',
+                    'Team': 'N/A',
+                    'Position': 'N/A',
+                    'Points': 'N/A',
+                    'Victories': 'N/A',
+                    'TotalPodiums': 'N/A',
+                    'TotalPoles': 'N/A',
+                    'TotalRaces': 'N/A',
+                    'TotalVictories': 'N/A',
+                    'TotalWorldChampionships': 'N/A',
+                    'MotoGPRaces': 'N/A',
+                    'MotoGPPoles': 'N/A',
+                    'MotoGPPodiums': 'N/A',
+                    'MotoGPVictories': 'N/A',
+                    'MotoGPWorldChampionships': 'N/A',
+                    'Moto2Races': 'N/A',
+                    'Moto2Poles': 'N/A',
+                    'Moto2Podiums': 'N/A',
+                    'Moto2Victories': 'N/A',
+                    'Moto2WorldChampionships': 'N/A',
+                    'Moto3Races': 'N/A',
+                    'Moto3Poles': 'N/A',
+                    'Moto3Podiums': 'N/A',
+                    'Moto3Victories': 'N/A',
+                    'Moto3WorldChampionships': 'N/A',
+                    'TeamMateImage': 'N/A',
+                    'TeamMateName': 'N/A',
+                  };
+
+              standingsMoto2Add.add({
+                'id': key,
+                'Id': riderId,
+                'Points': result['Points'] ?? 'N/A',
+                'RiderDetails': riderDetails,
+              });
+            }
+          });
         } else {
           print('Unexpected data format: ${snapshot.value.runtimeType}');
         }

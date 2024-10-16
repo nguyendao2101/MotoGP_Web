@@ -13,7 +13,14 @@ class RidersAndTeamsViewModels extends GetxController {
   RxList<Map<String, dynamic>> ridersListMotoGPWildCardsAndTestRiders =
       <Map<String, dynamic>>[].obs;
   RxList<Map<String, dynamic>> resultsMotoGPRAC = <Map<String, dynamic>>[].obs;
+  //add
+  RxList<Map<String, dynamic>> resultsMotoGPRACAdd =
+      <Map<String, dynamic>>[].obs;
+
   RxList<Map<String, dynamic>> resultsMotoGPWUP = <Map<String, dynamic>>[].obs;
+  //add
+  RxList<Map<String, dynamic>> resultsMotoGPWUPAdd =
+      <Map<String, dynamic>>[].obs;
 
   // Temporary storage for rider details
   Map<String, Map<String, dynamic>> ridersMap = {};
@@ -26,6 +33,8 @@ class RidersAndTeamsViewModels extends GetxController {
     fetchRidersMotoGPWildCardsAndTestRiders();
     fetchResultMotoGPRAC();
     fetchResultMotoGPWUP();
+    fetchRidersresultMotoGPRACAdd();
+    fetchRidersresultMotoGPWUPAdd();
   }
 
   dynamic zeroToSpace(dynamic input) {
@@ -349,6 +358,150 @@ class RidersAndTeamsViewModels extends GetxController {
               print('day la $resultsMotoGPWUP');
             }
           }
+        } else {
+          print('Unexpected data format: ${snapshot.value.runtimeType}');
+        }
+      }
+    }).catchError((error) {
+      print('Error fetching results: $error');
+    });
+  }
+
+  Future<void> fetchRidersresultMotoGPRACAdd() async {
+    DatabaseReference resultsRef = _databaseReference.child(
+        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/RACADD');
+
+    resultsRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        print('Data received: ${snapshot.value}');
+        if (snapshot.value is Map) {
+          Map<String, dynamic> resultsMap =
+              Map<String, dynamic>.from(snapshot.value as Map);
+          resultsMotoGPRACAdd.clear();
+
+          resultsMap.forEach((key, value) {
+            var result = value;
+            if (result is Map) {
+              String riderId = result['Id'] ?? 'N/A';
+
+              // Fetch rider details from combined ridersMap
+              Map<String, dynamic> riderDetails = ridersMap[riderId] ??
+                  {
+                    'Id': riderId,
+                    'ImageCountry': 'N/A',
+                    'Country': 'N/A',
+                    'ImageRacer': '',
+                    'Name': 'N/A',
+                    'Team': 'N/A',
+                    'Position': 'N/A',
+                    'Points': 'N/A',
+                    'Victories': 'N/A',
+                    'TotalPodiums': 'N/A',
+                    'TotalPoles': 'N/A',
+                    'TotalRaces': 'N/A',
+                    'TotalVictories': 'N/A',
+                    'TotalWorldChampionships': 'N/A',
+                    'MotoGPRaces': 'N/A',
+                    'MotoGPPoles': 'N/A',
+                    'MotoGPPodiums': 'N/A',
+                    'MotoGPVictories': 'N/A',
+                    'MotoGPWorldChampionships': 'N/A',
+                    'Moto2Races': 'N/A',
+                    'Moto2Poles': 'N/A',
+                    'Moto2Podiums': 'N/A',
+                    'Moto2Victories': 'N/A',
+                    'Moto2WorldChampionships': 'N/A',
+                    'Moto3Races': 'N/A',
+                    'Moto3Poles': 'N/A',
+                    'Moto3Podiums': 'N/A',
+                    'Moto3Victories': 'N/A',
+                    'Moto3WorldChampionships': 'N/A',
+                    'TeamMateImage': 'N/A',
+                    'TeamMateName': 'N/A',
+                  };
+
+              resultsMotoGPRACAdd.add({
+                'id': key,
+                'Id': riderId,
+                'Points': result['Points'] ?? 'N/A',
+                'Time': result['Time'] ?? 'N/A',
+                'RiderDetails': riderDetails,
+              });
+            }
+          });
+        } else {
+          print('Unexpected data format: ${snapshot.value.runtimeType}');
+        }
+      }
+    }).catchError((error) {
+      print('Error fetching results: $error');
+    });
+  }
+
+  Future<void> fetchRidersresultMotoGPWUPAdd() async {
+    DatabaseReference resultsRef = _databaseReference.child(
+        'Results&Standings/Results/2024/GrandsPrix/GRANPREMIODISANMARINOEDELLARIVIERADIRIMINI/MotoGP/WUPADD');
+
+    resultsRef.once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        print('Data received: ${snapshot.value}');
+        if (snapshot.value is Map) {
+          Map<String, dynamic> resultsMap =
+              Map<String, dynamic>.from(snapshot.value as Map);
+          resultsMotoGPWUPAdd.clear();
+
+          resultsMap.forEach((key, value) {
+            var result = value;
+            if (result is Map) {
+              String riderId = result['Id'] ?? 'N/A';
+
+              // Fetch rider details from combined ridersMap
+              Map<String, dynamic> riderDetails = ridersMap[riderId] ??
+                  {
+                    'Id': riderId,
+                    'ImageCountry': 'N/A',
+                    'Country': 'N/A',
+                    'ImageRacer': '',
+                    'Name': 'N/A',
+                    'Team': 'N/A',
+                    'Position': 'N/A',
+                    'Points': 'N/A',
+                    'Victories': 'N/A',
+                    'TotalPodiums': 'N/A',
+                    'TotalPoles': 'N/A',
+                    'TotalRaces': 'N/A',
+                    'TotalVictories': 'N/A',
+                    'TotalWorldChampionships': 'N/A',
+                    'MotoGPRaces': 'N/A',
+                    'MotoGPPoles': 'N/A',
+                    'MotoGPPodiums': 'N/A',
+                    'MotoGPVictories': 'N/A',
+                    'MotoGPWorldChampionships': 'N/A',
+                    'Moto2Races': 'N/A',
+                    'Moto2Poles': 'N/A',
+                    'Moto2Podiums': 'N/A',
+                    'Moto2Victories': 'N/A',
+                    'Moto2WorldChampionships': 'N/A',
+                    'Moto3Races': 'N/A',
+                    'Moto3Poles': 'N/A',
+                    'Moto3Podiums': 'N/A',
+                    'Moto3Victories': 'N/A',
+                    'Moto3WorldChampionships': 'N/A',
+                    'TeamMateImage': 'N/A',
+                    'TeamMateName': 'N/A',
+                  };
+
+              resultsMotoGPWUPAdd.add({
+                'id': key,
+                'Id': riderId,
+                'Gap': result['Gap'] ?? 'N/A',
+                'Time': result['Time'] ?? 'N/A',
+                'RiderDetails': riderDetails,
+              });
+            }
+          });
         } else {
           print('Unexpected data format: ${snapshot.value.runtimeType}');
         }

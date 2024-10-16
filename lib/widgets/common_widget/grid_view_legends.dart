@@ -7,7 +7,7 @@ import 'riders_legends_detail.dart';
 
 class GridViewLegends extends StatelessWidget {
   final controller;
-  final List<dynamic> listDS;
+  final RxList<Map<String, dynamic>> listDS;
   const GridViewLegends({super.key, this.controller, required this.listDS});
 
   @override

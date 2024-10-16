@@ -21,7 +21,8 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
         );
       } else {
         // Sắp xếp danh sách theo điểm số tăng dần
-        resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+        // resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+        sortResultsByPoints(resultsList);
 
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -42,7 +43,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
-                          gradient: result['id'] == '1'
+                          gradient: index == 0 //1
                               ? const LinearGradient(
                                   colors: [
                                     Color(0xFF1E201E),
@@ -74,11 +75,11 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '#${result['id']}',
+                                '#${index + 1}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 32,
-                                    color: result['id'] == '1'
+                                    color: index == 0 //2
                                         ? Colors.white
                                         : Colors.black),
                               ),
@@ -86,7 +87,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                                 result['Points'].toString(),
                                 style: TextStyle(
                                     fontSize: 20,
-                                    color: result['id'] == '1'
+                                    color: index == 0 //3
                                         ? Colors.white
                                         : Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -111,7 +112,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                         controller.extractNumbers(result['Id']),
                         style: TextStyle(
                             fontSize: 20,
-                            color: result['id'] == '1'
+                            color: index == 0 //4
                                 ? Colors.white
                                 : Colors.grey,
                             fontWeight: FontWeight.bold),
@@ -131,7 +132,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: result['id'] == '1'
+                            color: index == 0 //5
                                 ? Colors.white
                                 : Colors.black,
                           ),
@@ -153,8 +154,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                         riderDetails['Team'],
                         style: TextStyle(
                           fontSize: 20,
-                          color:
-                              result['id'] == '1' ? Colors.white : Colors.grey,
+                          color: index == 0 ? Colors.white : Colors.grey, //6
                         ),
                       ),
                     ),
@@ -167,6 +167,36 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
           ),
         );
       }
+    });
+  }
+
+  void sortResultsByPoints(List<Map<String, dynamic>> resultsList) {
+    resultsList.sort((a, b) {
+      // Lấy giá trị Points của a và b, nếu không có thì mặc định là 0
+      int pointsA;
+      int pointsB;
+
+      // Kiểm tra kiểu dữ liệu của a['Points']
+      if (a['Points'] is int) {
+        pointsA = a['Points'];
+      } else if (a['Points'] is String) {
+        pointsA = int.tryParse(a['Points']) ?? 0;
+      } else {
+        pointsA = 0;
+      }
+
+      // Kiểm tra kiểu dữ liệu của b['Points']
+      if (b['Points'] is int) {
+        pointsB = b['Points'];
+      } else if (b['Points'] is String) {
+        pointsB = int.tryParse(b['Points']) ?? 0;
+      } else {
+        pointsB = 0;
+      }
+
+      // Sắp xếp theo thứ tự giảm dần
+      return pointsB.compareTo(pointsA);
+      // return pointsA.compareTo(pointsB);
     });
   }
 }

@@ -21,7 +21,8 @@ class SliverListResults extends StatelessWidget {
           child: Center(child: CircularProgressIndicator()),
         );
       } else {
-        resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+        // resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+        sortResultsByPoints(resultsList);
 
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -58,7 +59,7 @@ class SliverListResults extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '#${result['id']}',
+                                '#${index + 1}',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 32),
                               ),
@@ -147,6 +148,36 @@ class SliverListResults extends StatelessWidget {
           ),
         );
       }
+    });
+  }
+
+  void sortResultsByPoints(List<Map<String, dynamic>> resultsList) {
+    resultsList.sort((a, b) {
+      // Lấy giá trị Points của a và b, nếu không có thì mặc định là 0
+      int pointsA;
+      int pointsB;
+
+      // Kiểm tra kiểu dữ liệu của a['Points']
+      if (a['Points'] is int) {
+        pointsA = a['Points'];
+      } else if (a['Points'] is String) {
+        pointsA = int.tryParse(a['Points']) ?? 0;
+      } else {
+        pointsA = 0;
+      }
+
+      // Kiểm tra kiểu dữ liệu của b['Points']
+      if (b['Points'] is int) {
+        pointsB = b['Points'];
+      } else if (b['Points'] is String) {
+        pointsB = int.tryParse(b['Points']) ?? 0;
+      } else {
+        pointsB = 0;
+      }
+
+      // Sắp xếp theo thứ tự giảm dần
+      return pointsB.compareTo(pointsA);
+      // return pointsA.compareTo(pointsB);
     });
   }
 }

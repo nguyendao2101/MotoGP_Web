@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../view_model/result_and_stadings_standings_motoe_view_model.dart';
+import '../common/image_extention.dart';
 import 'results_and_standings_stadings_list_view.dart';
 
 class ResultsAndStandingsStadingsMotoe extends StatefulWidget {
@@ -25,11 +26,24 @@ class _ResultsAndStandingsStadingsMotoeState
             await Future.wait([
               controllerRiders.fetchRidersMotoE(),
               controllerRiders.fetchStandingsMotoE(),
+              controllerRiders.fetchRidersStandingsMotoEAdd(),
             ]);
           },
           child: CustomScrollView(
             slivers: [
               // Sliver header
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _grandsPrixMonth('MotoE Standings'),
+                    ],
+                  ),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
@@ -49,6 +63,39 @@ class _ResultsAndStandingsStadingsMotoeState
                   return ResultsAndStandingsStadingsListView(
                     controller: controllerRiders,
                     listDS: controllerRiders.standingsMotoE,
+                  );
+                }
+              }),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _grandsPrixMonth('MotoE Standings Add'),
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                  child: Column(
+                    children: [
+                      _textInfomation(),
+                    ],
+                  ),
+                ),
+              ),
+              Obx(() {
+                if (controllerRiders.standingsMotoEAdd.isEmpty) {
+                  return const SliverFillRemaining(
+                      child: Center(child: Text('No data added yet')));
+                } else {
+                  return ResultsAndStandingsStadingsListView(
+                    controller: controllerRiders,
+                    listDS: controllerRiders.standingsMotoEAdd,
                   );
                 }
               }),
@@ -113,6 +160,20 @@ class _ResultsAndStandingsStadingsMotoeState
     return Text(
       text,
       style: const TextStyle(fontSize: 20, color: Colors.grey),
+    );
+  }
+
+  Row _grandsPrixMonth(String text) {
+    return Row(
+      children: [
+        Image.asset(ImageAssest.redFlag, height: 44),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

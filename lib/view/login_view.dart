@@ -29,6 +29,7 @@ class _LoginViewState extends State<LoginView> {
           ),
           Row(
             children: [
+              Expanded(flex: 1, child: Container()),
               Expanded(
                 flex: 1,
                 child: Padding(
@@ -180,6 +181,8 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+              Expanded(flex: 1, child: Container()),
+              Expanded(flex: 1, child: Container()),
               Expanded(flex: 1, child: Container())
             ],
           )

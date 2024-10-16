@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moto_gp_web/widgets/common_widget/rider_detail.dart';
@@ -21,7 +24,8 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
         );
       } else {
         // Sắp xếp danh sách theo điểm số tăng dần
-        resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+        // resultsList.sort((a, b) => b['Points'].compareTo(a['Points']));
+        sortResultsByPoints(resultsList);
 
         return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -42,7 +46,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
-                          gradient: result['id'] == '1'
+                          gradient: index == 0 //1
                               ? const LinearGradient(
                                   colors: [
                                     Color(0xFF1E201E),
@@ -74,22 +78,101 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '#${result['id']}',
+                                '#${index + 1}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 32,
-                                    color: result['id'] == '1'
+                                    color: index == 0 //1 //2
                                         ? Colors.white
                                         : Colors.black),
                               ),
-                              Text(
-                                result['Points'].toString(),
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: result['id'] == '1'
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.bold),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: Colors.blue,
+                                          size: 30,
+                                        ),
+                                        onPressed: () {
+                                          // Hiển thị dialog chỉnh sửa
+                                          _showEditDialog(context,
+                                              resultsList[index], index);
+                                        },
+                                      ),
+                                      const SizedBox(width: 4),
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ),
+                                        onPressed: () async {
+                                          try {
+                                            // Lấy ID của tài liệu từ dữ liệu của calendar
+                                            String documentId =
+                                                resultsList[index]['id'];
+
+                                            // Lấy dữ liệu từ Calendar/GrandsPrix
+                                            final snapshot = await FirebaseDatabase
+                                                .instance
+                                                .ref(
+                                                    'Results&Standings/Standings/2024/RidersChampionship')
+                                                .get();
+
+                                            if (snapshot.exists) {
+                                              // Duyệt qua từng nhánh con của Calendar/GrandsPrix
+                                              for (var grandPrixEntry
+                                                  in snapshot.children) {
+                                                // Kiểm tra xem documentId có tồn tại trong nhánh này không
+                                                final addCalendarSnapshot =
+                                                    grandPrixEntry
+                                                        .child(documentId);
+                                                if (addCalendarSnapshot
+                                                    .exists) {
+                                                  // Nếu tồn tại, thực hiện xóa
+                                                  await FirebaseDatabase
+                                                      .instance
+                                                      .ref(
+                                                          'Results&Standings/Standings/2024/RidersChampionship/${grandPrixEntry.key}/$documentId')
+                                                      .remove();
+
+                                                  // Nếu việc xóa thành công, xóa mục khỏi danh sách
+                                                  listDS.removeAt(index);
+
+                                                  // Thoát khỏi vòng lặp sau khi tìm thấy và xóa
+                                                  return;
+                                                }
+                                              }
+                                            }
+
+                                            // Nếu không tìm thấy documentId, in ra thông báo lỗi
+                                            print(
+                                                'Không tìm thấy documentId trong các nhánh con.');
+                                          } catch (e) {
+                                            // Xử lý lỗi nếu có vấn đề xảy ra
+                                            print(
+                                                'Lỗi khi xóa dữ liệu từ Realtime Database: $e');
+                                          }
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    result['Points'].toString(),
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: index == 0 //1 //3
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               )
                             ],
                           ),
@@ -111,7 +194,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                         controller.extractNumbers(result['Id']),
                         style: TextStyle(
                             fontSize: 20,
-                            color: result['id'] == '1'
+                            color: index == 0 //1 //4
                                 ? Colors.white
                                 : Colors.grey,
                             fontWeight: FontWeight.bold),
@@ -131,7 +214,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: result['id'] == '1'
+                            color: index == 0 //1 //5
                                 ? Colors.white
                                 : Colors.black,
                           ),
@@ -153,8 +236,7 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
                         riderDetails['Team'],
                         style: TextStyle(
                           fontSize: 20,
-                          color:
-                              result['id'] == '1' ? Colors.white : Colors.grey,
+                          color: index == 0 ? Colors.white : Colors.grey, //6
                         ),
                       ),
                     ),
@@ -167,6 +249,125 @@ class ResultsAndStandingsStadingsListView extends StatelessWidget {
           ),
         );
       }
+    });
+  }
+
+  void _showEditDialog(
+      BuildContext context, Map<String, dynamic> calendar, int index) {
+    final TextEditingController idController =
+        TextEditingController(text: calendar['Id'].toString());
+    final TextEditingController pointsController =
+        TextEditingController(text: calendar['Points'].toString());
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Update Infomation'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: idController,
+                  decoration: const InputDecoration(labelText: 'Id'),
+                ),
+                TextField(
+                  controller: pointsController,
+                  decoration: const InputDecoration(labelText: 'Points'),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Đóng dialog mà không làm gì
+              },
+              child: const Text('Hủy'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  String documentId = calendar['id'];
+
+                  // Lấy dữ liệu từ Calendar/GrandsPrix
+                  final snapshot = await FirebaseDatabase.instance
+                      .ref(
+                          'Results&Standings/Standings/2024/RidersChampionship')
+                      .get();
+
+                  if (snapshot.exists) {
+                    // Duyệt qua từng nhánh con của Calendar/GrandsPrix
+                    for (var grandPrixEntry in snapshot.children) {
+                      // Kiểm tra xem documentId có tồn tại trong nhánh này không
+                      final addCalendarSnapshot =
+                          grandPrixEntry.child(documentId);
+                      if (addCalendarSnapshot.exists) {
+                        // Nếu tồn tại, thực hiện cập nhật
+                        await FirebaseDatabase.instance
+                            .ref(
+                                'Results&Standings/Standings/2024/RidersChampionship/${grandPrixEntry.key}/$documentId')
+                            .update({
+                          'Id': idController.text,
+                          'Points': pointsController.text,
+                        });
+
+                        // Cập nhật lại danh sách trong ứng dụng
+                        listDS[index] = {
+                          ...calendar,
+                          'Id': idController.text,
+                          'Points': pointsController.text,
+                        };
+
+                        // Đóng dialog sau khi cập nhật thành công
+                        Navigator.of(context).pop();
+                        return;
+                      }
+                    }
+                  }
+
+                  // Nếu không tìm thấy, thông báo lỗi
+                  print('Không tìm thấy documentId trong các nhánh con.');
+                } catch (e) {
+                  print('Lỗi khi cập nhật dữ liệu: $e');
+                }
+              },
+              child: const Text('Lưu'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void sortResultsByPoints(List<Map<String, dynamic>> resultsList) {
+    resultsList.sort((a, b) {
+      // Lấy giá trị Points của a và b, nếu không có thì mặc định là 0
+      int pointsA;
+      int pointsB;
+
+      // Kiểm tra kiểu dữ liệu của a['Points']
+      if (a['Points'] is int) {
+        pointsA = a['Points'];
+      } else if (a['Points'] is String) {
+        pointsA = int.tryParse(a['Points']) ?? 0;
+      } else {
+        pointsA = 0;
+      }
+
+      // Kiểm tra kiểu dữ liệu của b['Points']
+      if (b['Points'] is int) {
+        pointsB = b['Points'];
+      } else if (b['Points'] is String) {
+        pointsB = int.tryParse(b['Points']) ?? 0;
+      } else {
+        pointsB = 0;
+      }
+
+      // Sắp xếp theo thứ tự giảm dần
+      return pointsB.compareTo(pointsA);
+      // return pointsA.compareTo(pointsB);
     });
   }
 }

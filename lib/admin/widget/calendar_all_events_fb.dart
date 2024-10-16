@@ -68,8 +68,7 @@ class _CalendarAllEventsFbState extends State<CalendarAllEventsFb> {
               Obx(() {
                 if (controller.addCalendarAllEvents.isEmpty) {
                   return const SliverFillRemaining(
-                    child: Center(child: CircularProgressIndicator()),
-                  );
+                      child: Center(child: Text('No data added yet')));
                 } else {
                   return GrandPrixCard(
                     controller: controller,

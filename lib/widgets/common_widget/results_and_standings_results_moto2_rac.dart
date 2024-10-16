@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../view_model/moto2_view_model.dart';
+import '../common/image_extention.dart';
 import 'results_and_standings_list_view.dart';
 
 class ResultsAndStandingsResultsMoto2Rac extends StatefulWidget {
@@ -28,11 +29,24 @@ class _ResultsAndStandingsResultsMoto2RacState
               controllerRiders.fetchRidersMoto2Substitute(),
               controllerRiders.fetchRidersMoto2WildcardsAndTestRiders(),
               controllerRiders.fetchResultMoto2RAC(),
+              controllerRiders.fetchRidersresultMoto2RACAdd(),
             ]);
           },
           child: CustomScrollView(
             slivers: [
               // Sliver header
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _grandsPrixMonth('Moto2 RAC'),
+                    ],
+                  ),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
@@ -52,6 +66,39 @@ class _ResultsAndStandingsResultsMoto2RacState
                   return SliverListResults(
                     controller: controllerRiders,
                     listDS: controllerRiders.resultsMoto2RAC,
+                  );
+                }
+              }),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _grandsPrixMonth('Moto2 RAC Add'),
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                  child: Column(
+                    children: [
+                      _textInfomation(),
+                    ],
+                  ),
+                ),
+              ),
+              Obx(() {
+                if (controllerRiders.resultsMoto2RACAdd.isEmpty) {
+                  return const SliverFillRemaining(
+                      child: Center(child: Text('No data added yet')));
+                } else {
+                  return SliverListResults(
+                    controller: controllerRiders,
+                    listDS: controllerRiders.resultsMoto2RACAdd,
                   );
                 }
               }),
@@ -120,6 +167,20 @@ class _ResultsAndStandingsResultsMoto2RacState
     return Text(
       text,
       style: TextStyle(fontSize: 20, color: Colors.grey),
+    );
+  }
+
+  Row _grandsPrixMonth(String text) {
+    return Row(
+      children: [
+        Image.asset(ImageAssest.redFlag, height: 44),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

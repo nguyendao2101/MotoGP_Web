@@ -29,6 +29,7 @@ class _SignUpViewState extends State<SignUpView> {
           ),
           Row(
             children: [
+              Expanded(flex: 1, child: Container()),
               Expanded(
                 flex: 1,
                 child: SingleChildScrollView(
@@ -127,6 +128,8 @@ class _SignUpViewState extends State<SignUpView> {
                       )),
                 ),
               ),
+              Expanded(flex: 1, child: Container()),
+              Expanded(flex: 1, child: Container()),
               Expanded(flex: 1, child: Container())
             ],
           ),
